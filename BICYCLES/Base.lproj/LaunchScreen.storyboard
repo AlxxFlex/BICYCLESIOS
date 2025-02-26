@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,17 +15,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bicycles sin fondo.png" translatesAutoresizingMaskIntoConstraints="NO" id="3vr-oE-PCT">
-                                <rect key="frame" x="0.0" y="203.33333333333334" width="393" height="445.33333333333326"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FondoBueno.png" translatesAutoresizingMaskIntoConstraints="NO" id="sWv-Ww-OJ2">
+                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LogoBicycles.png" translatesAutoresizingMaskIntoConstraints="NO" id="Z8P-lm-nWl">
+                                <rect key="frame" x="0.0" y="229.66666666666663" width="393" height="393"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Z8P-lm-nWl" secondAttribute="height" id="ky8-wi-RSd"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.2823529541" green="0.62352943419999995" blue="0.84313726430000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="3vr-oE-PCT" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="57Z-xl-iNv"/>
-                            <constraint firstItem="3vr-oE-PCT" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Sjj-Es-gat"/>
-                            <constraint firstItem="3vr-oE-PCT" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.523013" id="lc3-ar-arO"/>
-                            <constraint firstItem="3vr-oE-PCT" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" id="zBK-Bj-ZrT"/>
+                            <constraint firstItem="Z8P-lm-nWl" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="2KJ-MB-s0C"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="sWv-Ww-OJ2" secondAttribute="trailing" id="2iP-lD-gmu"/>
+                            <constraint firstItem="Z8P-lm-nWl" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="8yr-to-vXF"/>
+                            <constraint firstItem="sWv-Ww-OJ2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="cYc-5L-HyS"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="sWv-Ww-OJ2" secondAttribute="bottom" id="gN5-jM-uoP"/>
+                            <constraint firstItem="Z8P-lm-nWl" firstAttribute="width" secondItem="sWv-Ww-OJ2" secondAttribute="width" id="nh7-6n-0vm"/>
+                            <constraint firstItem="sWv-Ww-OJ2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="zrD-q6-AU5"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -36,9 +44,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Bicycles sin fondo.png" width="500" height="500"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="FondoBueno.png" width="810" height="1440"/>
+        <image name="LogoBicycles.png" width="375" height="375"/>
     </resources>
 </document>
