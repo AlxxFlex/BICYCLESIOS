@@ -1,13 +1,13 @@
 //
-//  SettingsViewController.swift
+//  VerifyCodeViewController.swift
 //  BICYCLES
 //
-//  Created by Aaron Alejandro Martinez Solis on 27/02/25.
+//  Created by Aaron Alejandro Martinez Solis on 13/03/25.
 //
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+class VerifyCodeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

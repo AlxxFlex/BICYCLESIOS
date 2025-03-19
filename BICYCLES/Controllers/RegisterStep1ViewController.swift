@@ -1,13 +1,13 @@
 //
-//  BicyclesViewController.swift
+//  RegisterStep1ViewController.swift
 //  BICYCLES
 //
-//  Created by Aaron Alejandro Martinez Solis on 27/02/25.
+//  Created by Aaron Alejandro Martinez Solis on 16/03/25.
 //
 
 import UIKit
 
-class BicyclesViewController: UIViewController {
+class RegisterStep1ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
