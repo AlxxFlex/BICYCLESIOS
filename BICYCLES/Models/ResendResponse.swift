@@ -6,3 +6,6 @@
 //
 
 import Foundation
+struct ResendResponse: Decodable {
+    let mensaje: String
+}

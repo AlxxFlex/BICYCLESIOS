@@ -6,7 +6,11 @@
 //
 
 import Foundation
+
 struct ApiErrorResponse: Codable {
-    let mensaje: String
+    let mensaje: String?         
     let errores: [String: [String]]?
+    
+    let redirect: String?  
+    let email: String?
 }

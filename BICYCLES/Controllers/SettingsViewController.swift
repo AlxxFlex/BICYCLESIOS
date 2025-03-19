@@ -1,5 +1,5 @@
 //
-//  ProfileViewController.swift
+//  SettingsViewController.swift
 //  BICYCLES
 //
 //  Created by Aaron Alejandro Martinez Solis on 27/02/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class SettingsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

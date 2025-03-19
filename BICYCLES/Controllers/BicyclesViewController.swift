@@ -1,5 +1,5 @@
 //
-//  RoutesViewController.swift
+//  BicyclesViewController.swift
 //  BICYCLES
 //
 //  Created by Aaron Alejandro Martinez Solis on 27/02/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RoutesViewController: UIViewController {
+class BicyclesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

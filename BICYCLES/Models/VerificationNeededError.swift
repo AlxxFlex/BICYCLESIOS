@@ -6,3 +6,7 @@
 //
 
 import Foundation
+struct VerificationNeededError: Error {
+    let email: String
+    let message: String
+}
