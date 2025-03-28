@@ -92,7 +92,7 @@ class ApiService {
             return
         }
         
-        guard let url = URL(string: "\(baseURL)/usuarios") else {
+        guard let url = URL(string: "\(baseURL)/usuario") else {
             completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "URL inválida"])))
             return
         }
@@ -106,8 +106,8 @@ class ApiService {
             "nombre": nombre,
             "apellido": apellido,
             "email": email,
-            "peso": peso,
-            "estatura": estatura
+            "peso": Float(peso),
+            "estatura": Float(estatura) 
         ]
         
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
@@ -123,12 +123,17 @@ class ApiService {
                 completion(.failure(noDataError))
                 return
             }
-            
-            if httpResponse.statusCode == 200 {
+            if let jsonString = String(data: data, encoding: .utf8) {
+                print("Respuesta de la API: \(jsonString)")
+            }
+            if httpResponse.statusCode == 200 || httpResponse.statusCode == 201 {
                 do {
-                    if let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-                       let message = json["message"] as? String {
-                        completion(.success(message))
+                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                        if let message = json["message"] as? String {
+                            completion(.success(message))
+                        } else {
+                            completion(.success("Perfil actualizado correctamente."))
+                        }
                     } else {
                         completion(.success("Perfil actualizado correctamente."))
                     }
@@ -148,7 +153,10 @@ class ApiService {
                                            userInfo: [NSLocalizedDescriptionKey: errMessage])
                     completion(.failure(apiError))
                 } catch {
-                    completion(.failure(error))
+                    print("Error al decodificar error: \(error.localizedDescription)")
+                    let fallbackError = NSError(domain: "", code: httpResponse.statusCode,
+                                                 userInfo: [NSLocalizedDescriptionKey: "Error desconocido al procesar la respuesta"])
+                    completion(.failure(fallbackError))
                 }
             }
         }.resume()

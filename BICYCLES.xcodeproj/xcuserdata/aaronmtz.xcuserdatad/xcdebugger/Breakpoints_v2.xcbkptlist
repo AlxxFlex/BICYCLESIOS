@@ -8,7 +8,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "E9500E29-C874-44C1-9B82-117D082FDB19"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BICYCLES/Controllers/RegisterViewController.swift"
@@ -23,108 +23,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7E147140-FB03-4216-8E70-43E9944CF1E7"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BICYCLES/Controllers/ProfileViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "14"
-            endingLineNumber = "14"
-            landmarkName = "ProfileViewController"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  uuid = "7E147140-FB03-4216-8E70-43E9944CF1E7 - 12decdda0afbed67"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "BICYCLES.ProfileViewController.PesoTF.getter : Swift.Optional&lt;__C.UITextField&gt;"
-                  moduleName = "BICYCLES.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/aaronmtz/Documents/INTEGRADORA%202/BICYCLES/BICYCLES/Controllers/ProfileViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0">
-               </Location>
-               <Location
-                  uuid = "7E147140-FB03-4216-8E70-43E9944CF1E7 - c2c0d3ae013a0113"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "BICYCLES.ProfileViewController.PesoTF.setter : Swift.Optional&lt;__C.UITextField&gt;"
-                  moduleName = "BICYCLES.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/aaronmtz/Documents/INTEGRADORA%202/BICYCLES/BICYCLES/Controllers/ProfileViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0">
-               </Location>
-               <Location
-                  uuid = "7E147140-FB03-4216-8E70-43E9944CF1E7 - df75f23fe56c04b2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "BICYCLES.ProfileViewController.PesoTF.modify : Swift.Optional&lt;__C.UITextField&gt;"
-                  moduleName = "BICYCLES.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/aaronmtz/Documents/INTEGRADORA%202/BICYCLES/BICYCLES/Controllers/ProfileViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "14"
-                  endingLineNumber = "14">
-               </Location>
-               <Location
-                  uuid = "7E147140-FB03-4216-8E70-43E9944CF1E7 - 1a7d95e8261ad890"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "BICYCLES.ProfileViewController.PesoTF.modify : Swift.Optional&lt;__C.UITextField&gt; with unmangled suffix &quot;.resume.0&quot;"
-                  moduleName = "BICYCLES.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///%3Ccompiler-generated%3E"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0">
-               </Location>
-               <Location
-                  uuid = "7E147140-FB03-4216-8E70-43E9944CF1E7 - 1d069ca39eac277b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "BICYCLES.ProfileViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; BICYCLES.ProfileViewController"
-                  moduleName = "BICYCLES.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/aaronmtz/Documents/INTEGRADORA%202/BICYCLES/BICYCLES/Controllers/ProfileViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "14"
-                  endingLineNumber = "14">
-               </Location>
-               <Location
-                  uuid = "7E147140-FB03-4216-8E70-43E9944CF1E7 - ad0fbcafba8d7470"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "BICYCLES.ProfileViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;BICYCLES.ProfileViewController&gt;"
-                  moduleName = "BICYCLES.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/aaronmtz/Documents/INTEGRADORA%202/BICYCLES/BICYCLES/Controllers/ProfileViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "14"
-                  endingLineNumber = "14">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "255A5F17-39D8-4783-81DD-40AA0A678EC1"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -132,10 +30,10 @@
             filePath = "BICYCLES/Helpers/ApiService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "361"
-            endingLineNumber = "361"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "369"
+            endingLineNumber = "369"
+            landmarkName = "logout(token:completion:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -22,7 +22,7 @@ class LoginViewController: UIViewController {
                   DispatchQueue.main.async {
                       switch result {
                       case .success(let authResponse):
-                          // Guarda token si quieres
+                          
                           SessionManager.shared.saveToken(authResponse.token)
                           print(authResponse.token)
                             SessionManager.shared.saveUser(authResponse.user)

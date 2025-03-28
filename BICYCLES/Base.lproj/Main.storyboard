@@ -837,7 +837,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="EnV-Ik-AlX">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="pAV-0Q-wEr">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Ymk-tx-VHg">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Ymk-tx-VHg">
                                 <rect key="frame" x="16" y="0.0" width="51" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
@@ -1302,7 +1302,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Anm-eU-5Fb">
-                                <rect key="frame" x="10" y="10" width="42.666666666666671" height="42.666666666666671"/>
+                                <rect key="frame" x="10" y="10" width="42.666666666666664" height="42.666666666666664"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Anm-eU-5Fb" secondAttribute="height" id="pJt-MD-TV7"/>
                                 </constraints>
@@ -1510,7 +1510,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="AlturaTFE" destination="SvT-HH-MXn" id="uqJ-qB-sS7"/>
+                        <outlet property="AlturaTFE" destination="fgw-47-z2L" id="lJc-UP-wo7"/>
                         <outlet property="ApellidoTFE" destination="2NQ-GO-uh8" id="eTg-v7-2OD"/>
                         <outlet property="EmailTFE" destination="SvT-HH-MXn" id="cHE-WM-a7I"/>
                         <outlet property="NombreTFE" destination="xqN-YY-8JD" id="ZzG-nl-ebn"/>
@@ -1583,7 +1583,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qmM-zU-Izw">
-                                        <rect key="frame" x="20" y="236.3333333333334" width="313" height="54.999999999999972"/>
+                                        <rect key="frame" x="20" y="236.33333333333337" width="313" height="55"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Eliminar">
                                             <backgroundConfiguration key="background" cornerRadius="29"/>

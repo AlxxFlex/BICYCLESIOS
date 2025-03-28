@@ -22,8 +22,9 @@ class ProfileViewController: UIViewController {
         if let user = SessionManager.shared.getUser() {
             NombreTF.text = user.nombre
             ApellidoTF.text = user.apellido
-            PesoTF.text = String(user.peso)
-            AlturaTF.text = String(user.estatura)
+            // Formatear peso y estatura como string con 2 decimales
+            PesoTF.text = String(format: "%.2f", user.peso)
+            AlturaTF.text = String(format: "%.2f", user.estatura)
             CorreoTF.text = user.email
         }
     }
@@ -76,9 +77,11 @@ class ProfileViewController: UIViewController {
                 if let editarVC = segue.destination as? EditProfileViewController,
                    let user = SessionManager.shared.getUser() {
                     editarVC.user = user
+                    editarVC.delegate = self
                 }
             }
         }
+        
 
             /*
              // MARK: - Navigation
@@ -92,4 +95,15 @@ class ProfileViewController: UIViewController {
             
         
     
+}
+extension ProfileViewController: EditProfileDelegate {
+    func perfilActualizado(_ user: User) {
+        NombreTF.text = user.nombre
+        ApellidoTF.text = user.apellido
+        PesoTF.text = String(format: "%.2f", user.peso)
+        AlturaTF.text = String(format: "%.2f", user.estatura)
+        CorreoTF.text = user.email
+        
+        SessionManager.shared.saveUser(user)
+    }
 }
