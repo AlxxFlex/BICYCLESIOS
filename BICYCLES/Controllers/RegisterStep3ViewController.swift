@@ -149,7 +149,8 @@ class RegisterStep3ViewController: UIViewController {
                       peso: peso,
                       estatura: estatura,
                       email: email,
-                      password: pass
+                      password: pass,
+                      confirm_password: confirmPass
                   ) { result in
                       DispatchQueue.main.async {
                           switch result {

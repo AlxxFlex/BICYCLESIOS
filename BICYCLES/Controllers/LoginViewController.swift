@@ -24,7 +24,9 @@ class LoginViewController: UIViewController {
                       case .success(let authResponse):
                           // Guarda token si quieres
                           SessionManager.shared.saveToken(authResponse.token)
-                          self.goToHome()
+                          print(authResponse.token)
+                            SessionManager.shared.saveUser(authResponse.user)
+                            self.goToHome()
 
                       case .failure(let error):
                           // 1) Detecta si es nuestro error de verificación

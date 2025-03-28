@@ -14,4 +14,5 @@ struct RegisterData {
     var estatura: Float?
     var email: String?
     var password: String?
+    var confirm_password:String?
 }

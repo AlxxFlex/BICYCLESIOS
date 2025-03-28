@@ -6,3 +6,6 @@
 //
 
 import Foundation
+struct LogoutResponse: Codable {
+    let mensaje: String
+}
