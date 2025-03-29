@@ -279,7 +279,6 @@ class ApiService {
                               codigo: String,
                               completion: @escaping(Result<VerifyResponse, Error>) -> Void) {
 
-            // Asegúrate de poner la URL real de tu endpoint
             guard let url = URL(string: "\(baseURL)/verify-code") else {
                 let error = NSError(domain: "", code: -1,
                                     userInfo: [NSLocalizedDescriptionKey: "URL inválida"])
@@ -290,8 +289,6 @@ class ApiService {
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-            // Cuerpo del request con email y código
             let body: [String: Any] = [
                 "email": email,
                 "codigo": codigo
@@ -299,13 +296,11 @@ class ApiService {
             request.httpBody = try? JSONSerialization.data(withJSONObject: body)
 
             URLSession.shared.dataTask(with: request) { data, response, error in
-                // 1) Error de conexión
+            
                 if let error = error {
                     completion(.failure(error))
                     return
                 }
-
-                // 2) Verificar data y response
                 guard let httpResponse = response as? HTTPURLResponse,
                       let data = data else {
                     let noDataError = NSError(domain: "", code: -2,
@@ -313,8 +308,6 @@ class ApiService {
                     completion(.failure(noDataError))
                     return
                 }
-
-                // 3) Manejo de status code
                 if httpResponse.statusCode == 200 {
                     do {
                         let verifyResponse = try JSONDecoder().decode(VerifyResponse.self, from: data)
@@ -323,7 +316,6 @@ class ApiService {
                         completion(.failure(error))
                     }
                 } else {
-                    // Error (400, 422, 500, etc.)
                     do {
                         let errorResponse = try JSONDecoder().decode(ApiErrorResponse.self, from: data)
                         let errorMessage = errorResponse.errores?.values
@@ -354,8 +346,6 @@ class ApiService {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        // Cuerpo del request con el email
         let body: [String: Any] = [
             "email": email
         ]
@@ -363,7 +353,6 @@ class ApiService {
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
-                // Error de conexión
                 completion(.failure(error))
                 return
             }
@@ -375,8 +364,6 @@ class ApiService {
                 completion(.failure(noDataError))
                 return
             }
-            
-            // Si el status es 200, parseamos
             if httpResponse.statusCode == 200 {
                 do {
                     let resendResponse = try JSONDecoder().decode(ResendResponse.self, from: data)
@@ -385,7 +372,6 @@ class ApiService {
                     completion(.failure(error))
                 }
             } else {
-                // Manejo de error
                 do {
                     let errorResponse = try JSONDecoder().decode(ApiErrorResponse.self, from: data)
                     let errorMessage = errorResponse.errores?.values
@@ -416,10 +402,10 @@ class ApiService {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         
-        // Necesitas pasar el Bearer token en la cabecera Authorization
+        
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
-        // Si tu API lo requiere, pones Content-Type
+        
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         URLSession.shared.dataTask(with: request) { data, response, error in
@@ -435,15 +421,15 @@ class ApiService {
             
             if httpResponse.statusCode == 200 {
                 do {
-                    // Si tu endpoint regresa algo como { "mensaje": "Cierre de sesión exitoso." }
+                    
                     let logoutResponse = try JSONDecoder().decode(LogoutResponse.self, from: data)
                     completion(.success(logoutResponse.mensaje))
                 } catch {
-                    // Si no pudiste decodificar el JSON
+                    
                     completion(.failure(error))
                 }
             } else {
-                // Manejamos error
+                
                 let errString = String(data: data, encoding: .utf8) ?? "Error desconocido"
                 let apiError = NSError(domain: "", code: httpResponse.statusCode,
                                        userInfo: [NSLocalizedDescriptionKey: errString])
@@ -451,8 +437,7 @@ class ApiService {
             }
         }.resume()
     }
-    // Crear bicicleta
-    func crearBicicleta(parametros: [String: Any], completion: @escaping (Result<Bicicleta, Error>) -> Void) {
+    func crearBicicleta(parametros: [String: Any], completion: @escaping (Result<Bool, Error>) -> Void) {
         guard let url = URL(string: "\(baseURL)/bicicleta") else {
             completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "URL inválida"])))
             return
@@ -462,6 +447,13 @@ class ApiService {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
+        
+        guard let token = SessionManager.shared.getToken() else {
+            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Token inválido"])))
+            return
+        }
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: parametros, options: [])
         } catch {
@@ -469,22 +461,16 @@ class ApiService {
             return
         }
         
-        URLSession.shared.dataTask(with: request) { data, _, error in
+        URLSession.shared.dataTask(with: request) { _, response, error in
             if let error = error {
                 completion(.failure(error))
                 return
             }
             
-            guard let data = data else {
-                completion(.failure(NSError(domain: "", code: -2, userInfo: [NSLocalizedDescriptionKey: "Sin datos"])))
-                return
-            }
-            
-            do {
-                let response = try JSONDecoder().decode(ApiResponse<Bicicleta>.self, from: data)
-                completion(.success(response.data))
-            } catch {
-                completion(.failure(error))
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 201 {
+                completion(.success(true)) 
+            } else {
+                completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Error al crear la bicicleta"])))
             }
         }.resume()
     }

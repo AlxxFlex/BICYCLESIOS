@@ -21,9 +21,9 @@ class EditProfileViewController: UIViewController {
     @IBOutlet weak var PesoTFE: UITextField!
    
     @IBOutlet weak var AlturaTFE: UITextField!
-    var user: User?  // Recibes el usuario de la otra pantalla
+    var user: User?
 
-    // Labels para mostrar errores
+    
     var errorNombreLabel = UILabel()
     var errorApellidoLabel = UILabel()
     var errorEmailLabel = UILabel()
@@ -33,29 +33,25 @@ class EditProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Mostrar datos recibidos del usuario
+        
         if let u = user {
             NombreTFE.text = u.nombre
             ApellidoTFE.text = u.apellido
             EmailTFE.text = u.email
-            
-            // Convertir peso y estatura de Float a String con 2 decimales
             PesoTFE.text = String(format: "%.2f", u.peso)
             AlturaTFE.text = String(format: "%.2f", u.estatura)
         }
 
-        // Configurar teclado numérico para peso y altura
+        
         PesoTFE.keyboardType = .decimalPad
         AlturaTFE.keyboardType = .decimalPad
 
-        // Configurar etiquetas de error
         setupErrorLabels()
     }
     @IBAction func BtnEditarPerfil(_ sender: Any) {
         editarPerfil()
     }
     func editarPerfil() {
-        // Limpiar errores anteriores
         mostrarErrores(nombre: nil, apellido: nil, email: nil, peso: nil, estatura: nil)
 
         var errorNombre: String?
@@ -64,35 +60,32 @@ class EditProfileViewController: UIViewController {
         var errorPeso: String?
         var errorEstatura: String?
 
-        // Validar nombre
         guard let nombre = NombreTFE.text, !nombre.isEmpty else {
             errorNombre = "Este campo es obligatorio"
             mostrarErrores(nombre: errorNombre, apellido: nil, email: nil, peso: nil, estatura: nil)
             return
         }
 
-        // Validar apellido
+        
         guard let apellido = ApellidoTFE.text, !apellido.isEmpty else {
             errorApellido = "Este campo es obligatorio"
             mostrarErrores(nombre: nil, apellido: errorApellido, email: nil, peso: nil, estatura: nil)
             return
         }
 
-        // Validar email
+        
         guard let email = EmailTFE.text, !email.isEmpty else {
             errorEmail = "Este campo es obligatorio"
             mostrarErrores(nombre: nil, apellido: nil, email: errorEmail, peso: nil, estatura: nil)
             return
         }
 
-        // Validar formato de email
         if !isValidEmail(email) {
             errorEmail = "Correo no válido"
             mostrarErrores(nombre: nil, apellido: nil, email: errorEmail, peso: nil, estatura: nil)
             return
         }
 
-        // Validar peso
         guard let pesoStr = PesoTFE.text?.trimmingCharacters(in: .whitespacesAndNewlines),
               !pesoStr.isEmpty,
               let peso = Float(pesoStr.replacingOccurrences(of: ",", with: ".")) else {
@@ -101,14 +94,12 @@ class EditProfileViewController: UIViewController {
             return
         }
 
-        // Validar rango de peso
         if peso < 20 || peso > 150 {
             errorPeso = "Peso fuera de rango"
             mostrarErrores(nombre: nil, apellido: nil, email: nil, peso: errorPeso, estatura: nil)
             return
         }
 
-        // Validar estatura
         guard let estaturaStr = AlturaTFE.text?.trimmingCharacters(in: .whitespacesAndNewlines),
               !estaturaStr.isEmpty,
               let estatura = Float(estaturaStr.replacingOccurrences(of: ",", with: ".")) else {
@@ -116,16 +107,11 @@ class EditProfileViewController: UIViewController {
             mostrarErrores(nombre: nil, apellido: nil, email: nil, peso: nil, estatura: errorEstatura)
             return
         }
-
-        // Validar rango de estatura
         if estatura < 1.10 || estatura > 2.20 {
             errorEstatura = "Estatura fuera de rango"
             mostrarErrores(nombre: nil, apellido: nil, email: nil, peso: nil, estatura: errorEstatura)
             return
         }
-
-        // ✅ Actualizar perfil si todas las validaciones son correctas
-        // ✅ Actualizar perfil si todas las validaciones son correctas
         ApiService.shared.actualizarPerfil(
             nombre: nombre,
             apellido: apellido,
@@ -136,7 +122,6 @@ class EditProfileViewController: UIViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let mensaje):
-                    // Actualizar el usuario con la nueva información
                     let updatedUser = User(
                         id: self.user?.id,
                         nombre: nombre,
@@ -160,7 +145,7 @@ class EditProfileViewController: UIViewController {
         }
     }
 
-// Mostrar errores si ocurren
+
    func mostrarErrores(nombre: String?, apellido: String?, email: String?, peso: String?, estatura: String?) {
        errorNombreLabel.text = nombre
        errorNombreLabel.isHidden = nombre == nil
@@ -178,7 +163,7 @@ class EditProfileViewController: UIViewController {
        errorEstaturaLabel.isHidden = estatura == nil
    }
 
-   // Configurar las etiquetas de error
+   
    func setupErrorLabels() {
        let labels = [errorNombreLabel, errorApellidoLabel, errorEmailLabel, errorPesoLabel, errorEstaturaLabel]
        
@@ -190,7 +175,7 @@ class EditProfileViewController: UIViewController {
            view.addSubview(label)
        }
 
-       // Posicionar las etiquetas de error debajo de cada campo
+       
        errorNombreLabel.translatesAutoresizingMaskIntoConstraints = false
        errorApellidoLabel.translatesAutoresizingMaskIntoConstraints = false
        errorEmailLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -215,17 +200,17 @@ class EditProfileViewController: UIViewController {
        ])
    }
 
-   // Validar formato de correo
+   
    func isValidEmail(_ email: String) -> Bool {
        let regex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
        return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: email)
    }
 
-   // Mostrar alertas
+   
     func showAlert(_ message: String, completion: (() -> Void)? = nil) {
         let alert = UIAlertController(title: "Información", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
-            completion?() // Ejecuta la acción después de cerrar la alerta si existe
+            completion?() 
         })
         present(alert, animated: true)
     }

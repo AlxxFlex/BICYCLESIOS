@@ -342,7 +342,7 @@
                                     <color key="baseBackgroundColor" red="0.2823529541" green="0.62352943419999995" blue="0.84313726430000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="unwindToBicyclesViewController:" destination="enf-lF-lkU" eventType="touchUpInside" id="abB-af-aVh"/>
+                                    <action selector="agregarBicicletaTapped:" destination="enf-lF-lkU" eventType="touchUpInside" id="Ya8-ys-mVD"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="FNl-MK-1bg">
@@ -383,7 +383,6 @@
                         </imageReference>
                     </tabBarItem>
                     <connections>
-                        <outlet property="NewBiciButton" destination="MXn-aI-1g7" id="d9J-1b-gsF"/>
                         <outlet property="tableView" destination="FNl-MK-1bg" id="xti-nj-ssL"/>
                         <segue destination="viC-UM-NA5" kind="presentation" identifier="NewBicicleta" id="soh-NL-SiW"/>
                     </connections>
@@ -395,7 +394,7 @@
         <!--New Bicicleta View Controller-->
         <scene sceneID="GT4-eQ-lne">
             <objects>
-                <viewController id="viC-UM-NA5" customClass="NewBicicletaViewController" customModule="BICYCLES" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewBicicletaViewController" id="viC-UM-NA5" customClass="NewBicicletaViewController" customModule="BICYCLES" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pFZ-wf-fS4">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -516,7 +515,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Correo Electronico" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vwX-bn-1oO">
-                                        <rect key="frame" x="20" y="368.66666666666669" width="354" height="39.666666666666686"/>
+                                        <rect key="frame" x="20" y="369" width="354" height="39.666666666666686"/>
                                         <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="24"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -540,25 +539,25 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="54" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ECO-5L-h9K">
-                                        <rect key="frame" x="20" y="329.33333333333331" width="157.66666666666666" height="39.333333333333314"/>
+                                        <rect key="frame" x="20" y="329.33333333333331" width="157.66666666666666" height="39.666666666666686"/>
                                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                                         <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="18"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.75" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ic9-Bc-k3W">
-                                        <rect key="frame" x="216.33333333333337" y="329.33333333333331" width="157.66666666666663" height="39.333333333333314"/>
+                                        <rect key="frame" x="216.33333333333337" y="329.33333333333331" width="157.66666666666663" height="39.666666666666686"/>
                                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                                         <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="18"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="angel87@gmail.com" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TvY-W2-dHI">
-                                        <rect key="frame" x="20" y="408.33333333333331" width="354" height="39.333333333333314"/>
+                                        <rect key="frame" x="20" y="408.66666666666669" width="354" height="39.666666666666686"/>
                                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                                         <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="18"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k6j-pA-amR">
-                                        <rect key="frame" x="20" y="467.66666666666663" width="354" height="39.666666666666686"/>
+                                        <rect key="frame" x="20" y="468.33333333333337" width="354" height="39.666666666666686"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Editar perfil">
                                             <backgroundConfiguration key="background" cornerRadius="32"/>
@@ -576,7 +575,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Us5-AZ-k0B">
-                                        <rect key="frame" x="20" y="527.33333333333337" width="354" height="39.333333333333371"/>
+                                        <rect key="frame" x="20" y="528" width="354" height="39.666666666666629"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="Cerrar Sesion">
                                             <backgroundConfiguration key="background" cornerRadius="32"/>
@@ -833,7 +832,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="EnV-Ik-AlX">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="pAV-0Q-wEr">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Ymk-tx-VHg">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Ymk-tx-VHg">
                                 <rect key="frame" x="20" y="0.0" width="51" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
