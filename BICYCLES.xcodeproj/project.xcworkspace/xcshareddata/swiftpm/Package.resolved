@@ -1,0 +1,24 @@
+{
+  "originHash" : "648c5d995d420c9b571e79ba85bb2a6a192fc5974402ca8ab5e7509c1fbfacb8",
+  "pins" : [
+    {
+      "identity" : "charts",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/danielgindi/Charts.git",
+      "state" : {
+        "revision" : "dd9c72e3d7e751e769971092a6bd72d39198ae63",
+        "version" : "5.1.0"
+      }
+    },
+    {
+      "identity" : "snapkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SnapKit/SnapKit.git",
+      "state" : {
+        "revision" : "f222cbdf325885926566172f6f5f06af95473158",
+        "version" : "5.6.0"
+      }
+    }
+  ],
+  "version" : 3
+}
