@@ -10,25 +10,13 @@ import DGCharts
 import SnapKit
 
 class EstadisticasViewController: UIViewController {
-    @IBOutlet weak var lblVelocidadTotal: UILabel!
-    @IBOutlet weak var lblVelocidadMejor: UILabel!
-    @IBOutlet weak var lblVelocidadPromedio: UILabel!
-    @IBOutlet weak var vwVelocidadGraficaContenedor: UIView!
+    @IBOutlet weak var lblTotal: UILabel!
+    @IBOutlet weak var lblTextoTotal: UILabel!
+    @IBOutlet weak var lblMejor: UILabel!
+    @IBOutlet weak var lblPromedio: UILabel!
+    @IBOutlet weak var vwContenedorGrafica: UIView!
     
-    @IBOutlet weak var lblCaloriasTotal: UILabel!
-    @IBOutlet weak var lblCaloriasMejor: UILabel!
-    @IBOutlet weak var lblCaloriasPromedio: UILabel!
-    @IBOutlet weak var vwCaloriaGraficaContenedor: UIView!
-    
-    @IBOutlet weak var lblDuracionTotal: UILabel!
-    @IBOutlet weak var lblDuracionMejor: UILabel!
-    @IBOutlet weak var lblDuracionPromedio: UILabel!
-    @IBOutlet weak var vwDuracionGraficaContenedor: UIView!
-    
-    
-    
-    
-    let barChartView: BarChartView = {
+    let graficaBarras: BarChartView = {
         let chart = BarChartView()
 
         chart.chartDescription.enabled = false
@@ -45,20 +33,67 @@ class EstadisticasViewController: UIViewController {
         print("Estadisticas vc charged")
         // Do any additional setup after loading the view.
 
-        view.addSubview(barChartView)
+        vwContenedorGrafica.addSubview(graficaBarras)
         
-        barChartView.snp.makeConstraints { (make) in
-            
+        graficaBarras.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(8)
         }
         
+        configurarDatosGrafica()
+
+        
     }
     
-    
-    @IBAction func actualizarDataGrafica(_ sender: UISegmentedControl) {
+    @IBAction func cambioValorSegmented(_ sender: UISegmentedControl) {
         
         print(sender.selectedSegmentIndex)
+        var seccion: String = ""
+        switch sender.selectedSegmentIndex {
+            case 0:
+                seccion = "distancias"
+            case 2:
+            seccion = "duraciones"
+        default:
+            seccion = "calorias"
+        }
         
+
     }
+    
+    func configurarDatosGrafica() {
+        // Datos de ejemplo
+        let valores: [Double] = [8, 104, 81, 93, 52, 44, 97, 101, 75, 92]
+        var entradasDeDatos: [BarChartDataEntry] = []
+        
+        // Crear las entradas de los datos
+        for (indice, valor) in valores.enumerated() {
+            let entrada = BarChartDataEntry(x: Double(indice), y: valor)
+            entradasDeDatos.append(entrada)
+        }
+        
+        let conjuntoDeDatos = BarChartDataSet(entries: entradasDeDatos, label: "Distancias")
+        conjuntoDeDatos.colors = ChartColorTemplates.material()
+        
+
+        let datos = BarChartData(dataSet: conjuntoDeDatos)
+        graficaBarras.data = datos
+        
+
+        if let maximoY = valores.max() {
+            graficaBarras.leftAxis.axisMaximum = maximoY + 10
+            graficaBarras.leftAxis.axisMinimum = 0
+        }
+        
+        //eje x
+        graficaBarras.xAxis.valueFormatter = IndexAxisValueFormatter(values: ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"])
+        
+        graficaBarras.xAxis.granularity = 1
+        graficaBarras.xAxis.labelPosition = .bottom
+        graficaBarras.animate(xAxisDuration: 1.0, yAxisDuration: 1.0)
+        
+        graficaBarras.notifyDataSetChanged()
+    }
+
     
     /*
     // MARK: - Navigation
