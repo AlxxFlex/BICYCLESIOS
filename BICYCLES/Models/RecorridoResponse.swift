@@ -6,3 +6,7 @@
 //
 
 import Foundation
+struct RecorridoResponse: Codable {
+    let message: String
+    let recorridos: [Recorrido]
+}

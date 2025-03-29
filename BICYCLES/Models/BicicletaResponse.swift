@@ -6,3 +6,7 @@
 //
 
 import Foundation
+struct BicicletaResponse: Codable {
+    let mensaje: String
+    let bicicleta: NewBicicleta
+}

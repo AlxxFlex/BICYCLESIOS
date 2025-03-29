@@ -30,8 +30,8 @@
             filePath = "BICYCLES/Helpers/ApiService.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "369"
-            endingLineNumber = "369"
+            startingLineNumber = "409"
+            endingLineNumber = "409"
             landmarkName = "logout(token:completion:)"
             landmarkType = "7">
          </BreakpointContent>

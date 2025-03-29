@@ -85,6 +85,46 @@ class ApiService {
             }
         }.resume()
     }
+    func obtenerBicicletas(completion: @escaping (Result<[Bicicleta], Error>) -> Void) {
+            guard let token = SessionManager.shared.getToken() else {
+                completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Token inválido"])))
+                return
+            }
+            
+            guard let url = URL(string: "\(baseURL)/bicicleta") else {
+                completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "URL inválida"])))
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                guard let httpResponse = response as? HTTPURLResponse, let data = data else {
+                    let noDataError = NSError(domain: "", code: -2, userInfo: [NSLocalizedDescriptionKey: "Sin datos en la respuesta"])
+                    completion(.failure(noDataError))
+                    return
+                }
+                
+                if httpResponse.statusCode == 200 {
+                    do {
+                        let apiResponse = try JSONDecoder().decode(ApiResponse<[Bicicleta]>.self, from: data)
+                        completion(.success(apiResponse.data))
+                    } catch {
+                        completion(.failure(error))
+                    }
+                } else {
+                    completion(.failure(NSError(domain: "", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey: "Error al obtener bicicletas"])))
+                }
+            }.resume()
+        }
     func actualizarPerfil(nombre: String, apellido: String, email: String, peso: Float, estatura: Float, completion: @escaping(Result<String, Error>) -> Void) {
         
         guard let token = SessionManager.shared.getToken() else {
@@ -411,5 +451,80 @@ class ApiService {
             }
         }.resume()
     }
+    // Crear bicicleta
+    func crearBicicleta(parametros: [String: Any], completion: @escaping (Result<Bicicleta, Error>) -> Void) {
+        guard let url = URL(string: "\(baseURL)/bicicleta") else {
+            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "URL inválida"])))
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: parametros, options: [])
+        } catch {
+            completion(.failure(error))
+            return
+        }
+        
+        URLSession.shared.dataTask(with: request) { data, _, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(NSError(domain: "", code: -2, userInfo: [NSLocalizedDescriptionKey: "Sin datos"])))
+                return
+            }
+            
+            do {
+                let response = try JSONDecoder().decode(ApiResponse<Bicicleta>.self, from: data)
+                completion(.success(response.data))
+            } catch {
+                completion(.failure(error))
+            }
+        }.resume()
+    }
+        func obtenerRecorridos(completion: @escaping (Result<[Recorrido], Error>) -> Void) {
+            guard let token = SessionManager.shared.getToken() else {
+                completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Token inválido"])))
+                return
+            }
+            
+            guard let url = URL(string: "\(baseURL)/recorridos") else {
+                completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "URL inválida"])))
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                guard let httpResponse = response as? HTTPURLResponse, let data = data, httpResponse.statusCode == 200 else {
+                    let noDataError = NSError(domain: "", code: -2, userInfo: [NSLocalizedDescriptionKey: "Error al obtener recorridos"])
+                    completion(.failure(noDataError))
+                    return
+                }
+                
+                do {
+                    let apiResponse = try JSONDecoder().decode(RecorridoResponse.self, from: data)
+                    completion(.success(apiResponse.recorridos))
+                } catch {
+                    completion(.failure(error))
+                }
+            }.resume()
+        }
     
-}
+    }
+    
+

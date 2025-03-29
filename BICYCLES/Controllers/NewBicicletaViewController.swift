@@ -9,11 +9,37 @@ import UIKit
 
 class NewBicicletaViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-    }
+    @IBOutlet weak var NombreBiciTF: UITextField!
+    var nuevaBicicleta: Bicicleta?
+        
+        override func viewDidLoad() {
+            super.viewDidLoad()
+        }
+        
+        // MARK: - Acción para agregar bicicleta
+        @IBAction func agregarBicicleta(_ sender: UIButton) {
+            guard let nombre = NombreBiciTF.text, !nombre.isEmpty else {
+                print("⚠️ El nombre de la bicicleta no puede estar vacío.")
+                return
+            }
+            
+            let parametros: [String: Any] = ["nombre": nombre]
+            
+            // Realizar la petición para crear la bicicleta
+            ApiService.shared.crearBicicleta(parametros: parametros) { [weak self] result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let bicicleta):
+                        print("✅ Bicicleta creada: \(bicicleta.nombre)")
+                        self?.nuevaBicicleta = bicicleta
+                        self?.performSegue(withIdentifier: "unwindToBicycles", sender: self)
+                    case .failure(let error):
+                        print("❌ Error al crear la bicicleta: \(error.localizedDescription)")
+                    }
+                }
+            }
+        }
     
 
     /*
