@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		048F78572D98B687000A6163 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 048F78562D98B687000A6163 /* SnapKit */; };
-		048F785A2D98B69A000A6163 /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 048F78592D98B69A000A6163 /* DGCharts */; };
+		048F75F32D988455000A6163 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 048F75F22D988455000A6163 /* SnapKit */; };
+		048F75F82D988905000A6163 /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 048F75F72D988905000A6163 /* DGCharts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,8 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				048F785A2D98B69A000A6163 /* DGCharts in Frameworks */,
-				048F78572D98B687000A6163 /* SnapKit in Frameworks */,
+				048F75F82D988905000A6163 /* DGCharts in Frameworks */,
+				048F75F32D988455000A6163 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,8 +85,8 @@
 			);
 			name = BICYCLES;
 			packageProductDependencies = (
-				048F78562D98B687000A6163 /* SnapKit */,
-				048F78592D98B69A000A6163 /* DGCharts */,
+				048F75F22D988455000A6163 /* SnapKit */,
+				048F75F72D988905000A6163 /* DGCharts */,
 			);
 			productName = BICYCLES;
 			productReference = 872EDD8B2D653B1200AD6B08 /* BICYCLES.app */;
@@ -117,8 +117,8 @@
 			mainGroup = 872EDD822D653B1200AD6B08;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				048F78552D98B687000A6163 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				048F78582D98B69A000A6163 /* XCRemoteSwiftPackageReference "Charts" */,
+				048F75F12D988455000A6163 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				048F75F62D988905000A6163 /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 872EDD8C2D653B1200AD6B08 /* Products */;
@@ -358,15 +358,15 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		048F78552D98B687000A6163 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		048F75F12D988455000A6163 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.6.0;
+				kind = exactVersion;
+				version = 5.6.0;
 			};
 		};
-		048F78582D98B69A000A6163 /* XCRemoteSwiftPackageReference "Charts" */ = {
+		048F75F62D988905000A6163 /* XCRemoteSwiftPackageReference "Charts" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/danielgindi/Charts.git";
 			requirement = {
@@ -377,14 +377,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		048F78562D98B687000A6163 /* SnapKit */ = {
+		048F75F22D988455000A6163 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 048F78552D98B687000A6163 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			package = 048F75F12D988455000A6163 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
-		048F78592D98B69A000A6163 /* DGCharts */ = {
+		048F75F72D988905000A6163 /* DGCharts */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 048F78582D98B69A000A6163 /* XCRemoteSwiftPackageReference "Charts" */;
+			package = 048F75F62D988905000A6163 /* XCRemoteSwiftPackageReference "Charts" */;
 			productName = DGCharts;
 		};
 /* End XCSwiftPackageProductDependency section */
