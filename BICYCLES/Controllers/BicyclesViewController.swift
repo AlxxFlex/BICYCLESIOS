@@ -8,9 +8,13 @@
 import UIKit
 
 
-class BicyclesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NewBicicletaDelegate {
+class BicyclesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NewBicicletaDelegate , EditarBicicletaDelegate,EliminarBicicletaDelegate{
 
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
+    
+    var bicicletasFiltradas: [Bicicleta] = []
+    var buscando = false
     var bicicletas: [Bicicleta] = []
        
     override func viewDidLoad() {
@@ -18,6 +22,8 @@ class BicyclesViewController: UIViewController, UITableViewDelegate, UITableView
     tableView.delegate = self
     tableView.dataSource = self
     tableView.register(BicicletaCell.self, forCellReuseIdentifier: "CellIdentifier")
+    searchBar.delegate = self
+        
     obtenerBicicletas()
 }
 
@@ -67,16 +73,16 @@ func obtenerBicicletas() {
        }
        
        // MARK: - Métodos UITableView
-       func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-           return bicicletas.count
-       }
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return buscando ? bicicletasFiltradas.count : bicicletas.count
+        }
        
        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
            guard let cell = tableView.dequeueReusableCell(withIdentifier: "CellIdentifier", for: indexPath) as? BicicletaCell else {
                return UITableViewCell()
            }
            
-           let bicicleta = bicicletas[indexPath.row]
+           let bicicleta = buscando ? bicicletasFiltradas[indexPath.row] : bicicletas[indexPath.row]
            cell.configure(with: bicicleta, target: self, editAction: #selector(editarBicicleta(_:)), deleteAction: #selector(eliminarBicicleta(_:)), index: indexPath.row)
            
            return cell
@@ -85,14 +91,78 @@ func obtenerBicicletas() {
            return 150
        }
        
-       // MARK: - Método para editar bicicleta
-       @objc func editarBicicleta(_ sender: UIButton) {
-           let bicicleta = bicicletas[sender.tag]
-           print("📝 Editar bicicleta: \(bicicleta.nombre) con ID \(bicicleta.id)")
-       }
-       // MARK: - Método para eliminar bicicleta
-       @objc func eliminarBicicleta(_ sender: UIButton) {
-           bicicletas.remove(at: sender.tag)
-           tableView.reloadData()
-       }
+        // MARK: - Método para editar bicicleta
+        @objc func editarBicicleta(_ sender: UIButton) {
+            let bicicleta = bicicletas[sender.tag]
+            print("📝 Editar bicicleta: \(bicicleta.nombre) con ID \(bicicleta.id)")
+            performSegue(withIdentifier: "sgeditbici", sender: bicicleta)
+        }
+
+        // MARK: - Preparar para el segue
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if segue.identifier == "sgeditbici" {
+                if let editVC = segue.destination as? EditarBicicletaViewController,
+                   let bicicleta = sender as? Bicicleta {
+                    editVC.bicicleta = bicicleta
+                    editVC.delegate = self
+                }
+            }
+        }
+
+        
+        func didEditBicicleta() {
+            obtenerBicicletas()
+        }
+    // MARK: - Método para eliminar bicicleta
+    @objc func eliminarBicicleta(_ sender: UIButton) {
+        let bicicleta = bicicletas[sender.tag]
+           print("🗑️ Eliminar bicicleta: \(bicicleta.nombre) con ID \(bicicleta.id)")
+           
+           
+           let eliminarVC = EliminarBicicletaViewController()
+           eliminarVC.bicicleta = bicicleta
+           eliminarVC.delegate = self
+           
+           
+           if #available(iOS 15.0, *) {
+               if let sheet = eliminarVC.sheetPresentationController {
+                   sheet.detents = [.medium()]
+                   sheet.prefersGrabberVisible = true
+               }
+           } else {
+               eliminarVC.modalPresentationStyle = .pageSheet
+           }
+           
+           present(eliminarVC, animated: true, completion: nil)
+    }
+
+    // MARK: - Recargar tabla después de eliminar bicicleta
+    func didDeleteBicicleta() {
+        obtenerBicicletas()
+    }
    }
+// MARK: - Extensión UISearchBarDelegate
+extension BicyclesViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            buscando = false
+        } else {
+            bicicletasFiltradas = bicicletas.filter { bicicleta in
+                return bicicleta.nombre.lowercased().contains(searchText.lowercased())
+            }
+            buscando = true
+        }
+        tableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        buscando = false
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        tableView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+}

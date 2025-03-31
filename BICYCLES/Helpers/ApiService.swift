@@ -48,26 +48,26 @@ class ApiService {
                     completion(.failure(error))
                 }
             } else {
-                // Aquí manejamos el error
+                
                 do {
-                    // Intenta decodificar el JSON de error
+                    
                     let errorObject = try JSONDecoder().decode(ApiErrorResponse.self, from: data)
                     
-                    // Checamos si el error indica que falta verificar el correo
+                    
                     if errorObject.redirect == "verify_code",
                        let unverifiedEmail = errorObject.email {
                         
-                        // Construimos un error personalizado
+                        
                         let verificationError = VerificationNeededError(
                             email: unverifiedEmail,
                             message: errorObject.mensaje ?? "Tu correo no está verificado"
                         )
                         
-                        // Devolvemos ese error
+                        
                         completion(.failure(verificationError))
                         
                     } else {
-                        // Manejo normal de error
+                        
                         let errMessage = errorObject.errores?.values
                             .flatMap { $0 }
                             .joined(separator: "\n")
@@ -79,7 +79,7 @@ class ApiService {
                         completion(.failure(apiError))
                     }
                 } catch {
-                    // Si no pudo decodificar el JSON de error
+                    
                     completion(.failure(error))
                 }
             }
@@ -510,7 +510,73 @@ class ApiService {
                 }
             }.resume()
         }
-    
+        
+        func editarBicicleta(id: Int, parametros: [String: Any], completion: @escaping (Result<Bool, Error>) -> Void) {
+            guard let url = URL(string: "\(baseURL)/bicicleta/\(id)") else {
+                completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "URL inválida"])))
+                return
+            }
+            
+            guard let token = SessionManager.shared.getToken() else {
+                completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Token no encontrado"])))
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "PUT"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            
+            do {
+                request.httpBody = try JSONSerialization.data(withJSONObject: parametros, options: [])
+            } catch {
+                completion(.failure(error))
+                return
+            }
+            
+            URLSession.shared.dataTask(with: request) { _, response, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                    completion(.success(true)) // ✅ Edición exitosa
+                } else {
+                    completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Error al editar la bicicleta"])))
+                }
+            }.resume()
+        }
+        func eliminarBicicleta(id: Int, completion: @escaping (Result<Bool, Error>) -> Void) {
+            guard let url = URL(string: "\(baseURL)/bicicleta/\(id)") else {
+                completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "URL inválida"])))
+                return
+            }
+            
+            guard let token = SessionManager.shared.getToken() else {
+                completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Token no encontrado"])))
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "DELETE"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            
+            URLSession.shared.dataTask(with: request) { _, response, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                    completion(.success(true)) // ✅ Eliminación exitosa
+                } else {
+                    completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Error al eliminar la bicicleta"])))
+                }
+            }.resume()
+        }
+            
     }
     
 
