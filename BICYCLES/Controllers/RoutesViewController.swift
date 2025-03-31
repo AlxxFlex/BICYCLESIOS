@@ -28,6 +28,10 @@ class RoutesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         obtenerRecorridos()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        obtenerRecorridos()
+    }
 
     // MARK: - Obtener Recorridos desde API
     func obtenerRecorridos() {
@@ -63,10 +67,25 @@ class RoutesViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     
     @objc func eliminarRecorrido(_ sender: UIButton) {
-        let recorrido = recorridos[sender.tag]
-        print("🗑️ Eliminando recorrido: \(recorrido.bicicletaNombre)")
-        recorridos.remove(at: sender.tag)
-        tableView.reloadData()
+        let recorrido = buscando ? recorridosFiltrados[sender.tag] : recorridos[sender.tag]
+        print("🗑️ Eliminar recorrido: \(recorrido.createdAt)")
+
+        // Crear instancia de EliminarRecorridoViewController
+        let eliminarVC = EliminarRecorridoViewController()
+        eliminarVC.recorrido = recorrido
+        eliminarVC.delegate = self
+        
+        // Presentar como modal estilo sheet
+        if #available(iOS 15.0, *) {
+            if let sheet = eliminarVC.sheetPresentationController {
+                sheet.detents = [.medium()] // ✅ Media pantalla
+                sheet.prefersGrabberVisible = true // Mostrar barra para deslizar
+            }
+        } else {
+            eliminarVC.modalPresentationStyle = .pageSheet
+        }
+        
+        present(eliminarVC, animated: true, completion: nil)
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -94,5 +113,10 @@ extension RoutesViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+    }
+}
+extension RoutesViewController: EliminarRecorridoDelegate {
+    func didDeleteRecorrido() {
+        obtenerRecorridos()
     }
 }

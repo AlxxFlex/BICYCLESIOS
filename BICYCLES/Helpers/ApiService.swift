@@ -576,6 +576,33 @@ class ApiService {
                 }
             }.resume()
         }
+        func eliminarRecorrido(id: String, completion: @escaping (Result<Bool, Error>) -> Void) {
+            guard let url = URL(string: "\(baseURL)/recorrido/\(id)") else {
+                completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "URL inválida"])))
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "DELETE"
+            
+            // Agregar token si es necesario
+            if let token = SessionManager.shared.getToken() {
+                request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            }
+            
+            URLSession.shared.dataTask(with: request) { _, response, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                
+                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                    completion(.success(true)) // ✅ Recorrido eliminado correctamente
+                } else {
+                    completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Error al eliminar el recorrido"])))
+                }
+            }.resume()
+        }
             
     }
     

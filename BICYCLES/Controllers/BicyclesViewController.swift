@@ -26,6 +26,10 @@ class BicyclesViewController: UIViewController, UITableViewDelegate, UITableView
         
     obtenerBicicletas()
 }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        obtenerBicicletas()
+    }
 
 // MARK: - Obtener Bicicletas desde API
 func obtenerBicicletas() {

@@ -8,6 +8,7 @@
 import Foundation
 
 struct Recorrido: Codable {
+    let id: String
     let bicicletaNombre: String
     let calorias: Int
     let tiempo: Int
@@ -17,6 +18,7 @@ struct Recorrido: Codable {
     let createdAt: String
 
     enum CodingKeys: String, CodingKey {
+        case id
         case bicicletaNombre = "bicicleta_nombre"
         case calorias
         case tiempo

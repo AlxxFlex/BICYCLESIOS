@@ -265,6 +265,7 @@
                     <connections>
                         <outlet property="searchBar" destination="tAF-Ki-Uma" id="Idd-4d-Djk"/>
                         <outlet property="tableView" destination="ELY-I5-Dab" id="eHF-hH-ZVN"/>
+                        <segue destination="BiE-54-XSS" kind="presentation" identifier="sgeliminarrecorrido" id="hT2-ml-tw7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nm7-e2-j6n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1507,6 +1508,21 @@
             </objects>
             <point key="canvasLocation" x="-2066" y="704"/>
         </scene>
+        <!--Eliminar Recorrido View Controller-->
+        <scene sceneID="VU2-PN-cPA">
+            <objects>
+                <viewController storyboardIdentifier="EliminarRecorridoViewController" id="BiE-54-XSS" customClass="EliminarRecorridoViewController" customModule="BICYCLES" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WTK-fP-nlz">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="ALa-xU-HNy"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yRH-3m-My7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1126" y="684"/>
+        </scene>
         <!--Editar Bicicleta View Controller-->
         <scene sceneID="vQU-Lj-HhA">
             <objects>
@@ -1681,7 +1697,7 @@ Si tiene preguntas o inquietudes sobre esta política de privacidad, puede cont
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zo4-x7-D86" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-161" y="704"/>
+            <point key="canvasLocation" x="-1359" y="1405"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="s8G-jZ-9e6">
