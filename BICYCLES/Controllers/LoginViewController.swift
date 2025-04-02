@@ -49,14 +49,18 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                             SessionManager.shared.saveToken(authResponse.token)
                             print(authResponse.token)
                             SessionManager.shared.saveUser(authResponse.user)
-                            self.goToHome()
+                            CustomAlertView.showSuccessAlert(message: "Inicio de sesión exitoso")
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                self.goToHome()
+                            }
 
                         case .failure(let error):
                             if let verificationError = error as? VerificationNeededError {
                                 self.goToVerify(email: verificationError.email)
                             } else {
                                 let message = error.localizedDescription
-                                self.showApiError(message)
+                                CustomAlertView.showErrorAlert(message: message)
+                            
                             }
                         }
                     }

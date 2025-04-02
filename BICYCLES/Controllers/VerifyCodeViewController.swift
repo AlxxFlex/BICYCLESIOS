@@ -26,11 +26,10 @@ class VerifyCodeViewController: UIViewController , UITextFieldDelegate{
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let resendResponse):
-                        // Aquí 'resendResponse.mensaje' contendrá el texto de éxito
-                        self.showAlert(resendResponse.mensaje)
+                        CustomAlertView.showSuccessAlert(message: resendResponse.mensaje)
                         
                     case .failure(let error):
-                        self.showAlert(error.localizedDescription)
+                        CustomAlertView.showErrorAlert(message: error.localizedDescription)
                     }
                 }
             }
@@ -42,7 +41,7 @@ class VerifyCodeViewController: UIViewController , UITextFieldDelegate{
            BtnConfirmar.alpha = 0.5
 
            guard let code = codeTextField.text, !code.isEmpty else {
-               showAlert("Por favor, ingresa el código de verificación.")
+               CustomAlertView.showYellowAlert(message: "Por favor, ingresa el código de verificación para activar tu cuenta.")
                BtnConfirmar.isEnabled = true
                BtnConfirmar.alpha = 1.0
                return
@@ -62,7 +61,7 @@ class VerifyCodeViewController: UIViewController , UITextFieldDelegate{
 
                    switch result {
                    case .success(let verifyResponse):
-                       self.showAlert("¡Cuenta activada con éxito!") {
+                       CustomAlertView.showSuccessAlert(message: "¡Cuenta activada con éxito!"){
                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
                            if let loginVC = storyboard.instantiateViewController(withIdentifier: "Loginview") as? LoginViewController {
                                loginVC.modalPresentationStyle = .fullScreen
@@ -71,7 +70,7 @@ class VerifyCodeViewController: UIViewController , UITextFieldDelegate{
                        }
 
                    case .failure(let error):
-                       self.showAlert(error.localizedDescription)
+                       CustomAlertView.showErrorAlert(message: error.localizedDescription)
                    }
                }
            }

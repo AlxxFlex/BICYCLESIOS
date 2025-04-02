@@ -63,7 +63,7 @@ class RegisterStep2ViewController: UIViewController,UITextFieldDelegate{
            pesoErrorLabel.text = "El peso debe ser mayor a 20 kg"
            pesoErrorLabel.isHidden = false
            isValid = false
-       } else if peso > 160 {
+       } else if peso > 150 {
            pesoErrorLabel.text = "No puedes superar los 160 kg"
            pesoErrorLabel.isHidden = false
            isValid = false
@@ -74,11 +74,11 @@ class RegisterStep2ViewController: UIViewController,UITextFieldDelegate{
            isValid = false
            return
        }
-       if estatura < 1 {
+        if estatura < 1.10 {
            estaturaErrorLabel.text = "La estatura debe ser mayor a 1 metro."
            estaturaErrorLabel.isHidden = false
            isValid = false
-       } else if estatura > 2.5 {
+       } else if estatura > 2.20 {
            estaturaErrorLabel.text = "La estatura no puede superar los 3 metros."
            estaturaErrorLabel.isHidden = false
            isValid = false

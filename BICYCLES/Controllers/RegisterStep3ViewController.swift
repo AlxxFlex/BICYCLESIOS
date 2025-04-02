@@ -178,7 +178,7 @@ class RegisterStep3ViewController: UIViewController,UITextFieldDelegate {
 
                         switch result {
                         case .success(let response):
-                            self.showAlert("Registro exitoso: \(response.usuario.email)") {
+                            CustomAlertView.showSuccessAlert(message: "Registro exitoso: \(response.usuario.email)"){
                                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                                 if let verifyVC = storyboard.instantiateViewController(withIdentifier: "VerifyView") as? VerifyCodeViewController {
                                     verifyVC.email = email
@@ -188,7 +188,7 @@ class RegisterStep3ViewController: UIViewController,UITextFieldDelegate {
                             }
 
                         case .failure(let error):
-                            self.showAlert(error.localizedDescription)
+                            CustomAlertView.showErrorAlert(message: error.localizedDescription)
                         }
                     }
                 }

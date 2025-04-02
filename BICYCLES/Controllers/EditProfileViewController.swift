@@ -30,6 +30,12 @@ class EditProfileViewController: UIViewController,UITextFieldDelegate {
     var errorEmailLabel = UILabel()
     var errorPesoLabel = UILabel()
     var errorEstaturaLabel = UILabel()
+    
+    private var nombreOriginal: String = ""
+    private var apellidoOriginal: String = ""
+    private var emailOriginal: String = ""
+    private var pesoOriginal: String = ""
+    private var estaturaOriginal: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +52,17 @@ class EditProfileViewController: UIViewController,UITextFieldDelegate {
             EmailTFE.text = u.email
             PesoTFE.text = String(format: "%.2f", u.peso)
             AlturaTFE.text = String(format: "%.2f", u.estatura)
+            
+            
+            nombreOriginal = u.nombre
+            apellidoOriginal = u.apellido
+            emailOriginal = u.email
+            pesoOriginal = String(format: "%.2f", u.peso)
+            estaturaOriginal = String(format: "%.2f", u.estatura)
+            
+            
+            btnguardar.isEnabled = false
+            btnguardar.alpha = 0.5
         }
 
         
@@ -57,8 +74,11 @@ class EditProfileViewController: UIViewController,UITextFieldDelegate {
     @IBAction func BtnEditarPerfil(_ sender: Any) {
         editarPerfil()
     }
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        verificarCambios()
+    }
     func editarPerfil() {
-        // Desactiva el botón mientras se valida y espera la respuesta
+        
            btnguardar.isEnabled = false
            btnguardar.alpha = 0.5
 
@@ -130,7 +150,7 @@ class EditProfileViewController: UIViewController,UITextFieldDelegate {
                return
            }
 
-           if estatura < 1.10 || estatura >= 2.20 {
+           if estatura < 1.10 || estatura > 2.20 {
                errorEstatura = "Estatura fuera de rango"
                mostrarErrores(nombre: nil, apellido: nil, email: nil, peso: nil, estatura: errorEstatura)
                btnguardar.isEnabled = true
@@ -146,30 +166,31 @@ class EditProfileViewController: UIViewController,UITextFieldDelegate {
                estatura: estatura
            ) { result in
                DispatchQueue.main.async {
-                   // Reactivar botón al recibir respuesta
                    self.btnguardar.isEnabled = true
                    self.btnguardar.alpha = 1.0
 
                    switch result {
-                   case .success(let mensaje):
+                   case .success(_):
                        let updatedUser = User(
-                           id: self.user?.id,
-                           nombre: nombre,
-                           apellido: apellido,
-                           peso: peso,
-                           estatura: estatura,
-                           email: email,
-                           rol_id: self.user?.rol_id,
-                           email_verified_at: self.user?.email_verified_at,
-                           deleted_at: self.user?.deleted_at
+                        id: self.user?.id,
+                        nombre: nombre,
+                        apellido: apellido,
+                        peso: peso,
+                        estatura: estatura,
+                        email: email,
+                        rol_id: self.user?.rol_id,
+                        email_verified_at: self.user?.email_verified_at,
+                        deleted_at: self.user?.deleted_at
                        )
                        self.delegate?.perfilActualizado(updatedUser)
-                       self.showAlert("Perfil actualizado correctamente.") {
-                           self.navigationController?.popViewController(animated: true)
+                       CustomAlertView.showSuccessAlert(message: "Perfil actualizado correctamente") {
+                           self.dismiss(animated: true, completion: nil)
                        }
-
+                       
                    case .failure(let error):
-                       self.showAlert(error.localizedDescription)
+                       let mensaje = error.localizedDescription.lowercased()
+                       CustomAlertView.showErrorAlert(message: error.localizedDescription)
+                       
                    }
                }
            }
@@ -244,13 +265,24 @@ class EditProfileViewController: UIViewController,UITextFieldDelegate {
         present(alert, animated: true)
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true) // Oculta el teclado al tocar fuera
+        view.endEditing(true)
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder() // Oculta el teclado
+        textField.resignFirstResponder()
         return true
     }
-   
+    func verificarCambios() {
+        let nombreCambiado = NombreTFE.text != nombreOriginal
+        let apellidoCambiado = ApellidoTFE.text != apellidoOriginal
+        let emailCambiado = EmailTFE.text != emailOriginal
+        let pesoCambiado = PesoTFE.text != pesoOriginal
+        let estaturaCambiada = AlturaTFE.text != estaturaOriginal
+
+        let hayCambios = nombreCambiado || apellidoCambiado || emailCambiado || pesoCambiado || estaturaCambiada
+
+        btnguardar.isEnabled = hayCambios
+        btnguardar.alpha = hayCambios ? 1.0 : 0.5
+    }
     
 
     /*

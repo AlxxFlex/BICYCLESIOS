@@ -10,7 +10,7 @@ import Foundation
 class ApiService {
     static let shared = ApiService()
     
-    private let baseURL = "http://192.168.118.116:8000/api/v1"
+    private let baseURL = "http://127.0.0.1:8000/api/v1"
 
     func login(email: String, password: String, completion: @escaping(Result<AuthResponse, Error>) -> Void) {
         guard let url = URL(string: "\(baseURL)/login") else {
@@ -188,9 +188,12 @@ class ApiService {
                         .joined(separator: "\n")
                         ?? errorObject.mensaje
                         ?? "Error desconocido"
-                    
+
                     let apiError = NSError(domain: "", code: httpResponse.statusCode,
-                                           userInfo: [NSLocalizedDescriptionKey: errMessage])
+                                           userInfo: [
+                                               NSLocalizedDescriptionKey: errMessage,
+                                               "errores": errorObject.errores ?? [:] // 🔥 PASAMOS LOS ERRORES AQUÍ
+                                           ])
                     completion(.failure(apiError))
                 } catch {
                     print("Error al decodificar error: \(error.localizedDescription)")
@@ -603,7 +606,47 @@ class ApiService {
                 }
             }.resume()
         }
+        func crearRecorrido(bicicletaId: Int, completion: @escaping (Result<String, Error>) -> Void) {
+            guard let token = SessionManager.shared.getToken(),
+                  let url = URL(string: "\(baseURL)/recorrido") else {
+                completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Token o URL inválido"])))
+                return
+            }
+
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+
+            let json: [String: Any] = ["bicicleta_id": bicicletaId]
+            request.httpBody = try? JSONSerialization.data(withJSONObject: json)
+
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                DispatchQueue.main.async {
+                    if let error = error {
+                        completion(.failure(error))
+                        return
+                    }
+
+                    guard let data = data else {
+                        completion(.failure(NSError(domain: "", code: -2, userInfo: [NSLocalizedDescriptionKey: "No se recibió data"])))
+                        return
+                    }
+
+                    do {
+                        if let respuesta = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                           let recorridoId = respuesta["recorrido_id"] as? String {
+                            completion(.success(recorridoId))
+                        } else {
+                            completion(.failure(NSError(domain: "", code: -3, userInfo: [NSLocalizedDescriptionKey: "Respuesta inválida"])))
+                        }
+                    } catch {
+                        completion(.failure(error))
+                    }
+                }
+            }.resume()
+        }
             
-    }
+}
     
 
