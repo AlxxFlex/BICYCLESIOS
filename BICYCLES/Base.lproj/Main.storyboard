@@ -832,7 +832,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="EnV-Ik-AlX">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="pAV-0Q-wEr">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Ymk-tx-VHg">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Ymk-tx-VHg">
                                 <rect key="frame" x="20" y="0.0" width="51" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
@@ -2111,7 +2111,7 @@ Si tiene preguntas o inquietudes sobre esta política de privacidad, puede cont
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="figure.outdoor.cycle.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="KxF-CN-Eqy">
-                                        <rect key="frame" x="10.000000000000002" y="10.666666666666668" width="30.666666666666671" height="29.333333333333332"/>
+                                        <rect key="frame" x="10.000000000000002" y="10.500000000000002" width="30.666666666666671" height="29.666666666666657"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="KxF-CN-Eqy" secondAttribute="height" id="tDm-3w-cIf"/>
                                         </constraints>
@@ -2153,7 +2153,7 @@ Si tiene preguntas o inquietudes sobre esta política de privacidad, puede cont
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowshape.up.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="gHv-qB-xSe">
-                                        <rect key="frame" x="10.000000000000002" y="10.666666666666666" width="30.666666666666671" height="29.666666666666679"/>
+                                        <rect key="frame" x="10.000000000000002" y="10.5" width="30.666666666666671" height="29.999999999999993"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="gHv-qB-xSe" secondAttribute="height" id="CSI-0z-OIz"/>
                                         </constraints>
@@ -2195,7 +2195,7 @@ Si tiene preguntas o inquietudes sobre esta política de privacidad, puede cont
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flame" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ZU2-p7-adV">
-                                        <rect key="frame" x="10.000000000000002" y="9.6666666666666696" width="30.666666666666671" height="30.333333333333343"/>
+                                        <rect key="frame" x="10.000000000000002" y="9.0000000000000018" width="30.666666666666671" height="30.666666666666657"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="ZU2-p7-adV" secondAttribute="height" id="OPo-Jm-avJ"/>
                                         </constraints>
@@ -2237,7 +2237,7 @@ Si tiene preguntas o inquietudes sobre esta política de privacidad, puede cont
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gauge.with.dots.needle.67percent" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="VPc-BD-jM7">
-                                        <rect key="frame" x="10.000000000000002" y="10.666666666666668" width="30.666666666666671" height="29.333333333333332"/>
+                                        <rect key="frame" x="10.000000000000002" y="10.500000000000002" width="30.666666666666671" height="29.666666666666657"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="VPc-BD-jM7" secondAttribute="height" id="Ekg-ML-K9Y"/>
                                         </constraints>
@@ -2661,14 +2661,14 @@ Si tiene preguntas o inquietudes sobre esta política de privacidad, puede cont
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f1D-bo-KsM">
                                 <rect key="frame" x="10" y="54" width="394" height="138.33333333333334"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3.556,0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdX-OE-THj">
-                                        <rect key="frame" x="118.33333333333333" y="36" width="157.33333333333337" height="25"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cargando..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pdX-OE-THj">
+                                        <rect key="frame" x="118.33333333333333" y="31.333333333333329" width="157.33333333333337" height="34"/>
                                         <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="24"/>
                                         <color key="textColor" red="0.2823529541" green="0.62352943419999995" blue="0.84313726430000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total de tiempo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="199-mD-J6p">
-                                        <rect key="frame" x="118.33333333333333" y="76" width="157.33333333333337" height="19.333333333333329"/>
+                                        <rect key="frame" x="118.33333333333333" y="80.333333333333343" width="157.33333333333337" height="19.333333333333329"/>
                                         <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -2677,7 +2677,6 @@ Si tiene preguntas o inquietudes sobre esta política de privacidad, puede cont
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="199-mD-J6p" firstAttribute="height" secondItem="f1D-bo-KsM" secondAttribute="height" multiplier="0.14" id="3aU-SR-dTS"/>
-                                    <constraint firstItem="pdX-OE-THj" firstAttribute="height" secondItem="199-mD-J6p" secondAttribute="height" multiplier="1.3" id="CmA-2h-aMH"/>
                                     <constraint firstItem="199-mD-J6p" firstAttribute="width" secondItem="f1D-bo-KsM" secondAttribute="width" multiplier="0.4" id="CmC-Jg-FWo"/>
                                     <constraint firstItem="pdX-OE-THj" firstAttribute="centerX" secondItem="f1D-bo-KsM" secondAttribute="centerX" id="ESG-47-Ieg"/>
                                     <constraint firstItem="pdX-OE-THj" firstAttribute="width" secondItem="199-mD-J6p" secondAttribute="width" id="Thf-mH-93i"/>
@@ -2695,7 +2694,7 @@ Si tiene preguntas o inquietudes sobre esta política de privacidad, puede cont
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LoW-gG-6mT">
                                 <rect key="frame" x="10" y="202.33333333333334" width="186.33333333333334" height="115.33333333333334"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="615,0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gbt-2f-1Xc">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cargando..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gbt-2f-1Xc">
                                         <rect key="frame" x="55.999999999999993" y="24.333333333333314" width="74.333333333333314" height="20.666666666666671"/>
                                         <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="21"/>
                                         <color key="textColor" systemColor="systemPurpleColor"/>
@@ -2729,7 +2728,7 @@ Si tiene preguntas o inquietudes sobre esta política de privacidad, puede cont
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J7i-hT-40W">
                                 <rect key="frame" x="217.66666666666663" y="202.33333333333334" width="186.33333333333337" height="115.33333333333334"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="519,0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kuf-Ln-fMW">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cargando..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kuf-Ln-fMW">
                                         <rect key="frame" x="56.000000000000021" y="24.333333333333314" width="74.333333333333314" height="20.666666666666671"/>
                                         <fontDescription key="fontDescription" name="ChalkboardSE-Bold" family="Chalkboard SE" pointSize="21"/>
                                         <color key="textColor" systemColor="systemGreenColor"/>
@@ -2832,7 +2831,7 @@ Si tiene preguntas o inquietudes sobre esta política de privacidad, puede cont
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y9J-6y-mbv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3271" y="-77"/>
+            <point key="canvasLocation" x="3269.5652173913045" y="-77.008928571428569"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
@@ -2875,16 +2874,16 @@ Si tiene preguntas o inquietudes sobre esta política de privacidad, puede cont
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPurpleColor">
-            <color red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
