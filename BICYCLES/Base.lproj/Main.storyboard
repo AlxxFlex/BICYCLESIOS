@@ -247,7 +247,83 @@
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mKE-35-VhY">
                                 <rect key="frame" x="10" y="594.66666666666663" width="420" height="189"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vel. Act." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wvm-Bw-LiL">
+                                        <rect key="frame" x="169" y="10" width="82.333333333333314" height="66"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="82.329999999999998" id="Z9H-bT-lf5"/>
+                                            <constraint firstAttribute="height" constant="66" id="xhZ-qZ-yJK"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="23"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vel. Prom." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yur-sc-3j0">
+                                        <rect key="frame" x="35" y="10" width="110" height="66"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="110" id="Oyy-yF-feq"/>
+                                            <constraint firstAttribute="height" constant="66" id="rMt-yg-0uB"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="23"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vel. Max." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="huc-IQ-T4P">
+                                        <rect key="frame" x="275" y="10" width="110" height="66"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="66" id="aA3-QD-KHX"/>
+                                            <constraint firstAttribute="width" constant="110" id="yxA-SD-xyN"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="23"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14 km/h" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CIZ-wg-9bs">
+                                        <rect key="frame" x="35" y="82" width="110" height="66"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="66" id="8cA-37-2k6"/>
+                                            <constraint firstAttribute="width" constant="110" id="vzS-Qk-eHw"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="23"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16 km/h" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rpj-sm-cLz">
+                                        <rect key="frame" x="155" y="82" width="110" height="66"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="66" id="KGQ-p0-cwq"/>
+                                            <constraint firstAttribute="width" constant="110" id="Ku8-9g-7rY"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="23"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23 km/h" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qgH-tV-Uvh">
+                                        <rect key="frame" x="275" y="82" width="110" height="66"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="66" id="Ej4-56-G1m"/>
+                                            <constraint firstAttribute="width" constant="110" id="WT4-b1-mGl"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="23"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="rpj-sm-cLz" firstAttribute="top" secondItem="wvm-Bw-LiL" secondAttribute="bottom" constant="6" id="2qv-4T-EDs"/>
+                                    <constraint firstItem="huc-IQ-T4P" firstAttribute="top" secondItem="mKE-35-VhY" secondAttribute="top" constant="10" id="5bq-cU-QRw"/>
+                                    <constraint firstItem="huc-IQ-T4P" firstAttribute="centerX" secondItem="mKE-35-VhY" secondAttribute="centerX" constant="120" id="7Mu-1l-Kps"/>
+                                    <constraint firstItem="qgH-tV-Uvh" firstAttribute="centerX" secondItem="mKE-35-VhY" secondAttribute="centerX" constant="120" id="Wdg-18-lSd"/>
+                                    <constraint firstItem="rpj-sm-cLz" firstAttribute="centerX" secondItem="mKE-35-VhY" secondAttribute="centerX" id="Xrv-YH-9sI"/>
+                                    <constraint firstItem="yur-sc-3j0" firstAttribute="centerX" secondItem="mKE-35-VhY" secondAttribute="centerX" constant="-120" id="Zg1-aq-i9g"/>
+                                    <constraint firstItem="wvm-Bw-LiL" firstAttribute="top" secondItem="mKE-35-VhY" secondAttribute="top" constant="10" id="acr-Ts-7So"/>
+                                    <constraint firstItem="wvm-Bw-LiL" firstAttribute="centerX" secondItem="mKE-35-VhY" secondAttribute="centerX" id="bmF-Vj-LFb"/>
+                                    <constraint firstItem="CIZ-wg-9bs" firstAttribute="top" secondItem="yur-sc-3j0" secondAttribute="bottom" constant="6" id="j8W-gj-8qy"/>
+                                    <constraint firstItem="yur-sc-3j0" firstAttribute="top" secondItem="mKE-35-VhY" secondAttribute="top" constant="10" id="lMg-hp-XEh"/>
+                                    <constraint firstItem="qgH-tV-Uvh" firstAttribute="top" secondItem="huc-IQ-T4P" secondAttribute="bottom" constant="6" id="uEO-r4-iBl"/>
+                                    <constraint firstItem="CIZ-wg-9bs" firstAttribute="centerX" secondItem="mKE-35-VhY" secondAttribute="centerX" constant="-120" id="wtX-UV-RjU"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <integer key="value" value="30"/>
@@ -257,7 +333,83 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M7Y-MT-tbP">
                                 <rect key="frame" x="10" y="395.33333333333331" width="420" height="189.33333333333331"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Temp." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gd9-1q-UQ6">
+                                        <rect key="frame" x="35" y="10" width="110" height="66"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="110" id="1dn-Jt-vLF"/>
+                                            <constraint firstAttribute="height" constant="66" id="Wp5-tH-ttB"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="23"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25 *" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RUU-Jk-ZTI">
+                                        <rect key="frame" x="35" y="82" width="110" height="66"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="110" id="3VT-WO-45N"/>
+                                            <constraint firstAttribute="height" constant="66" id="hMc-uG-3Zo"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="23"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="214 kc" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jMd-Lr-FUU">
+                                        <rect key="frame" x="155" y="82" width="110" height="66"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="110" id="IEU-zI-vBp"/>
+                                            <constraint firstAttribute="height" constant="66" id="lQa-ei-6Ea"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="23"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cal." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XCw-YM-ZsH">
+                                        <rect key="frame" x="155" y="10" width="110" height="66"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="66" id="BGv-aV-Ddz"/>
+                                            <constraint firstAttribute="width" constant="110" id="wWd-dd-PlK"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="23"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dist." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hLB-5D-p2L">
+                                        <rect key="frame" x="275" y="10" width="110" height="66"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="66" id="awM-6M-WCh"/>
+                                            <constraint firstAttribute="width" constant="110" id="srY-ry-htB"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="23"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3.2 km" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xft-XI-SG9">
+                                        <rect key="frame" x="275" y="82" width="110" height="66"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="110" id="UP2-PX-g3A"/>
+                                            <constraint firstAttribute="height" constant="66" id="rBs-b3-OX3"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="23"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="hLB-5D-p2L" firstAttribute="centerX" secondItem="M7Y-MT-tbP" secondAttribute="centerX" constant="120" id="9i2-Gx-9Cs"/>
+                                    <constraint firstItem="Gd9-1q-UQ6" firstAttribute="top" secondItem="M7Y-MT-tbP" secondAttribute="top" constant="10" id="Ncq-Ae-g6g"/>
+                                    <constraint firstItem="RUU-Jk-ZTI" firstAttribute="top" secondItem="Gd9-1q-UQ6" secondAttribute="bottom" constant="6" id="O1D-rb-nQA"/>
+                                    <constraint firstItem="jMd-Lr-FUU" firstAttribute="top" secondItem="XCw-YM-ZsH" secondAttribute="bottom" constant="6" id="YVX-4E-ATL"/>
+                                    <constraint firstItem="RUU-Jk-ZTI" firstAttribute="centerX" secondItem="M7Y-MT-tbP" secondAttribute="centerX" constant="-120" id="ZBA-hM-xAU"/>
+                                    <constraint firstItem="XCw-YM-ZsH" firstAttribute="centerX" secondItem="M7Y-MT-tbP" secondAttribute="centerX" id="d9B-qT-jxA"/>
+                                    <constraint firstItem="jMd-Lr-FUU" firstAttribute="centerX" secondItem="M7Y-MT-tbP" secondAttribute="centerX" id="fAa-wu-73y"/>
+                                    <constraint firstItem="hLB-5D-p2L" firstAttribute="top" secondItem="M7Y-MT-tbP" secondAttribute="top" constant="10" id="mHL-xL-WIC"/>
+                                    <constraint firstItem="Gd9-1q-UQ6" firstAttribute="centerX" secondItem="M7Y-MT-tbP" secondAttribute="centerX" constant="-120" id="oss-dZ-vfQ"/>
+                                    <constraint firstItem="Xft-XI-SG9" firstAttribute="centerX" secondItem="M7Y-MT-tbP" secondAttribute="centerX" constant="120" id="wbV-T9-tmw"/>
+                                    <constraint firstItem="XCw-YM-ZsH" firstAttribute="top" secondItem="M7Y-MT-tbP" secondAttribute="top" constant="10" id="whV-vc-gAa"/>
+                                    <constraint firstItem="Xft-XI-SG9" firstAttribute="top" secondItem="XCw-YM-ZsH" secondAttribute="bottom" constant="6" id="zmP-ci-peh"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -277,7 +429,7 @@
                                     <color key="baseBackgroundColor" red="0.2823529541" green="0.62352943419999995" blue="0.84313726430000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </buttonConfiguration>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QfD-IT-Yzh">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tiempo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QfD-IT-Yzh">
                                 <rect key="frame" x="10" y="314.33333333333331" width="420" height="66"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="23"/>
                                 <nil key="textColor"/>
@@ -934,7 +1086,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="EnV-Ik-AlX">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="pAV-0Q-wEr">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Ymk-tx-VHg">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Ymk-tx-VHg">
                                 <rect key="frame" x="20" y="0.0" width="51" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
