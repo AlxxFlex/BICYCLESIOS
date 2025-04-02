@@ -12,6 +12,7 @@ struct Recorrido: Codable {
     let bicicletaNombre: String
     let calorias: Int
     let tiempo: String
+    let temperatura: Int
     let velocidadPromedio: Double
     let velocidadMaxima: Int
     let distanciaRecorrida: Double
@@ -22,6 +23,7 @@ struct Recorrido: Codable {
         case bicicletaNombre = "bicicleta_nombre"
         case calorias
         case tiempo
+        case temperatura
         case velocidadPromedio = "velocidad_promedio"
         case velocidadMaxima = "velocidad_maxima"
         case distanciaRecorrida = "distancia_recorrida"

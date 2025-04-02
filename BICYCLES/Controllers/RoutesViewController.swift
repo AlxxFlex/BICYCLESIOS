@@ -14,6 +14,7 @@ class RoutesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var recorridos: [Recorrido] = []
     var recorridosFiltrados: [Recorrido] = []
     var buscando = false
+    var recorridoSeleccionado: Recorrido?
 
     let activityIndicator = UIActivityIndicatorView(style: .large)
     var datosCargados = false
@@ -22,6 +23,7 @@ class RoutesViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.allowsSelection = true
         tableView.register(RecorridoCell.self, forCellReuseIdentifier: "RecorridoCell")
 
         
@@ -86,9 +88,24 @@ class RoutesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
 
         let recorrido = buscando ? recorridosFiltrados[indexPath.row] : recorridos[indexPath.row]
-        cell.configure(with: recorrido, target: self, deleteAction: #selector(eliminarRecorrido(_:)), index: indexPath.row)
-
+        cell.configure(with: recorrido,
+                       target: self,
+                       deleteAction: #selector(eliminarRecorrido(_:)),
+                       viewAction: #selector(verRecorrido(_:)),
+                       index: indexPath.row)
+        
         return cell
+    }
+    @objc func verRecorrido(_ sender: UIButton) {
+        print("👉 Botón ojito presionado con tag: \(sender.tag)")
+        recorridoSeleccionado = buscando ? recorridosFiltrados[sender.tag] : recorridos[sender.tag]
+        performSegue(withIdentifier: "verRecorridoSegue", sender: self)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "verRecorridoSegue",
+           let destino = segue.destination as? SelectRouteViewController {
+            destino.recorrido = recorridoSeleccionado
+        }
     }
 
     
@@ -211,6 +228,17 @@ extension RoutesViewController: UISearchBarDelegate {
             textField.resignFirstResponder() // Oculta el teclado
             return true
         }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let recorridoSeleccionado = buscando ? recorridosFiltrados[indexPath.row] : recorridos[indexPath.row]
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let detalleVC = storyboard.instantiateViewController(withIdentifier: "SelectRouteViewController") as? SelectRouteViewController {
+            detalleVC.recorrido = recorridoSeleccionado
+            detalleVC.modalPresentationStyle = .fullScreen
+            navigationController?.pushViewController(detalleVC, animated: true)
+        }
+    }
 }
 extension RoutesViewController: EliminarRecorridoDelegate {
     func didDeleteRecorrido() {

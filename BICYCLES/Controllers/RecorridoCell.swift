@@ -53,10 +53,20 @@ class RecorridoCell: UITableViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    let viewButton: UIButton = {
+        let button = UIButton(type: .system)
+        let viewImage = UIImage(systemName: "eye.fill")?
+            .withTintColor(.systemBlue, renderingMode: .alwaysOriginal)
+            .withConfiguration(UIImage.SymbolConfiguration(pointSize: 25))
+        button.setImage(viewImage, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     
     // MARK: - Inicialización de la celda
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.selectionStyle = .default // Asegúrate de que la celda se pueda seleccionar
         setupViews()
     }
     
@@ -85,6 +95,7 @@ class RecorridoCell: UITableViewCell {
         containerView.addSubview(caloriasLabel)
         containerView.addSubview(fechaLabel)
         containerView.addSubview(deleteButton)
+        containerView.addSubview(viewButton)
         
         setupConstraints()
     }
@@ -104,11 +115,19 @@ class RecorridoCell: UITableViewCell {
             recorridoImageView.widthAnchor.constraint(equalToConstant: 70), // Imagen cuadrada
             recorridoImageView.heightAnchor.constraint(equalToConstant: 70),
             
-            // Botón para eliminar (arriba a la derecha)
-            deleteButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10),
-            deleteButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10),
-            deleteButton.widthAnchor.constraint(equalToConstant: 35),
-            deleteButton.heightAnchor.constraint(equalToConstant: 35),
+ 
+            
+          // Restricción para el botón de eliminar (arriba a la derecha)
+          deleteButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10),
+          deleteButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10),
+          deleteButton.widthAnchor.constraint(equalToConstant: 35),
+          deleteButton.heightAnchor.constraint(equalToConstant: 35),
+          
+          // Restricción para el botón de ver (ojito) en la esquina inferior derecha
+          viewButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -10),
+          viewButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10),
+          viewButton.widthAnchor.constraint(equalToConstant: 35),
+          viewButton.heightAnchor.constraint(equalToConstant: 25),
             
             // Nombre de la bicicleta a la derecha de la imagen
             nombreLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10),
@@ -139,14 +158,20 @@ class RecorridoCell: UITableViewCell {
     }
     
     // MARK: - Configurar Celda
-    func configure(with recorrido: Recorrido, target: Any, deleteAction: Selector, index: Int) {
+    func configure(with recorrido: Recorrido, target: Any, deleteAction: Selector, viewAction: Selector, index: Int) {
         nombreLabel.text = recorrido.bicicletaNombre
         distanciaLabel.text = "Distancia: \(recorrido.distanciaRecorrida) m"
         tiempoLabel.text = "Tiempo: \(recorrido.tiempo) s"
         caloriasLabel.text = "Calorías: \(recorrido.calorias)"
         fechaLabel.text = "Fecha: \(recorrido.createdAt)"
         
+        deleteButton.removeTarget(nil, action: nil, for: .allEvents)
+        viewButton.removeTarget(nil, action: nil, for: .allEvents)
+        
         deleteButton.tag = index
         deleteButton.addTarget(target, action: deleteAction, for: .touchUpInside)
+        
+        viewButton.tag = index
+        viewButton.addTarget(target, action: viewAction, for: .touchUpInside)
     }
 }
