@@ -125,9 +125,20 @@ class EliminarBicicletaViewController: UIViewController {
             return
         }
         
-        // Llamar al servicio para eliminar la bicicleta
+        // 💡 Desactivar botón mientras se elimina
+        confirmarButton.isEnabled = false
+        confirmarButton.alpha = 0.5
+        cancelarButton.isEnabled = false
+        cancelarButton.alpha = 0.5
+
         ApiService.shared.eliminarBicicleta(id: id) { [weak self] result in
             DispatchQueue.main.async {
+                // 💡 Reactivar botones tras respuesta
+                self?.confirmarButton.isEnabled = true
+                self?.confirmarButton.alpha = 1.0
+                self?.cancelarButton.isEnabled = true
+                self?.cancelarButton.alpha = 1.0
+
                 switch result {
                 case .success:
                     self?.delegate?.didDeleteBicicleta()

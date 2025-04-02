@@ -8,7 +8,7 @@
 import UIKit
 
 
-class BicyclesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NewBicicletaDelegate , EditarBicicletaDelegate,EliminarBicicletaDelegate{
+class BicyclesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NewBicicletaDelegate,UITextFieldDelegate, EditarBicicletaDelegate,EliminarBicicletaDelegate{
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
@@ -28,6 +28,7 @@ class BicyclesViewController: UIViewController, UITableViewDelegate, UITableView
         activityIndicator.center = view.center
         activityIndicator.hidesWhenStopped = true
         view.addSubview(activityIndicator)
+        searchBar.delegate = self
         
         obtenerBicicletas()
     }
@@ -232,6 +233,13 @@ class BicyclesViewController: UIViewController, UITableViewDelegate, UITableView
         mostrarAlarma(texto: "Bicicleta eliminada 🗑️")
         obtenerBicicletas()
     }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            view.endEditing(true) // Oculta el teclado al tocar fuera
+        }
+        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            textField.resignFirstResponder() // Oculta el teclado
+            return true
+        }
    }
 // MARK: - Extensión UISearchBarDelegate
 extension BicyclesViewController: UISearchBarDelegate {
@@ -257,4 +265,5 @@ extension BicyclesViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
+    
 }

@@ -122,28 +122,38 @@ class EliminarRecorridoViewController: UIViewController {
    }
    
    // MARK: - Acción para confirmar eliminación
-   @objc func confirmarEliminar() {
-       guard let id = recorrido?.id else {
-           mostrarAlerta(titulo: "Error", mensaje: "No se encontró el recorrido.")
-           return
-       }
-       
-       // Llamar al servicio para eliminar el recorrido
-       ApiService.shared.eliminarRecorrido(id: id) { [weak self] result in
-           DispatchQueue.main.async {
-               switch result {
-               case .success:
-                   print("✅ Recorrido eliminado correctamente.")
-                   self?.delegate?.didDeleteRecorrido()
-                   self?.dismiss(animated: true, completion: nil)
-               case .failure(let error):
-                   print("❌ Error al eliminar el recorrido: \(error.localizedDescription)")
-                   self?.mostrarAlerta(titulo: "Error", mensaje: "No se pudo eliminar el recorrido.")
-               }
-           }
-       }
-   }
-   
+    @objc func confirmarEliminar() {
+        guard let id = recorrido?.id else {
+            mostrarAlerta(titulo: "Error", mensaje: "No se encontró el recorrido.")
+            return
+        }
+
+        // 💡 Desactivar botones mientras se elimina
+        confirmarButton.isEnabled = false
+        confirmarButton.alpha = 0.5
+        cancelarButton.isEnabled = false
+        cancelarButton.alpha = 0.5
+
+        ApiService.shared.eliminarRecorrido(id: id) { [weak self] result in
+            DispatchQueue.main.async {
+                // 💡 Reactivar botones tras recibir respuesta
+                self?.confirmarButton.isEnabled = true
+                self?.confirmarButton.alpha = 1.0
+                self?.cancelarButton.isEnabled = true
+                self?.cancelarButton.alpha = 1.0
+
+                switch result {
+                case .success:
+                    print("✅ Recorrido eliminado correctamente.")
+                    self?.delegate?.didDeleteRecorrido()
+                    self?.dismiss(animated: true, completion: nil)
+                case .failure(let error):
+                    print("❌ Error al eliminar el recorrido: \(error.localizedDescription)")
+                    self?.mostrarAlerta(titulo: "Error", mensaje: "No se pudo eliminar el recorrido.")
+                }
+            }
+        }
+    }
    // MARK: - Acción para cancelar eliminación
    @objc func cancelarEliminar() {
        dismiss(animated: true, completion: nil)

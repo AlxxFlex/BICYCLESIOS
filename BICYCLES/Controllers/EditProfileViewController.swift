@@ -11,10 +11,11 @@ protocol EditProfileDelegate: AnyObject {
     func perfilActualizado(_ user: User)
 }
 
-class EditProfileViewController: UIViewController {
+class EditProfileViewController: UIViewController,UITextFieldDelegate {
 
     weak var delegate: EditProfileDelegate?
     
+    @IBOutlet weak var btnguardar: UIButton!
     @IBOutlet weak var EmailTFE: UITextField!
     @IBOutlet weak var NombreTFE: UITextField!
     @IBOutlet weak var ApellidoTFE: UITextField!
@@ -33,6 +34,11 @@ class EditProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        EmailTFE.delegate = self
+        NombreTFE.delegate = self
+        ApellidoTFE.delegate = self
+        PesoTFE.delegate = self
+        AlturaTFE.delegate = self
         
         if let u = user {
             NombreTFE.text = u.nombre
@@ -52,99 +58,122 @@ class EditProfileViewController: UIViewController {
         editarPerfil()
     }
     func editarPerfil() {
-        mostrarErrores(nombre: nil, apellido: nil, email: nil, peso: nil, estatura: nil)
+        // Desactiva el botón mientras se valida y espera la respuesta
+           btnguardar.isEnabled = false
+           btnguardar.alpha = 0.5
 
-        var errorNombre: String?
-        var errorApellido: String?
-        var errorEmail: String?
-        var errorPeso: String?
-        var errorEstatura: String?
+           mostrarErrores(nombre: nil, apellido: nil, email: nil, peso: nil, estatura: nil)
 
-        guard let nombre = NombreTFE.text, !nombre.isEmpty else {
-            errorNombre = "Este campo es obligatorio"
-            mostrarErrores(nombre: errorNombre, apellido: nil, email: nil, peso: nil, estatura: nil)
-            return
-        }
+           var errorNombre: String?
+           var errorApellido: String?
+           var errorEmail: String?
+           var errorPeso: String?
+           var errorEstatura: String?
 
-        
-        guard let apellido = ApellidoTFE.text, !apellido.isEmpty else {
-            errorApellido = "Este campo es obligatorio"
-            mostrarErrores(nombre: nil, apellido: errorApellido, email: nil, peso: nil, estatura: nil)
-            return
-        }
+           guard let nombre = NombreTFE.text, !nombre.isEmpty else {
+               errorNombre = "Este campo es obligatorio"
+               mostrarErrores(nombre: errorNombre, apellido: nil, email: nil, peso: nil, estatura: nil)
+               btnguardar.isEnabled = true
+               btnguardar.alpha = 1.0
+               return
+           }
 
-        
-        guard let email = EmailTFE.text, !email.isEmpty else {
-            errorEmail = "Este campo es obligatorio"
-            mostrarErrores(nombre: nil, apellido: nil, email: errorEmail, peso: nil, estatura: nil)
-            return
-        }
+           guard let apellido = ApellidoTFE.text, !apellido.isEmpty else {
+               errorApellido = "Este campo es obligatorio"
+               mostrarErrores(nombre: nil, apellido: errorApellido, email: nil, peso: nil, estatura: nil)
+               btnguardar.isEnabled = true
+               btnguardar.alpha = 1.0
+               return
+           }
 
-        if !isValidEmail(email) {
-            errorEmail = "Correo no válido"
-            mostrarErrores(nombre: nil, apellido: nil, email: errorEmail, peso: nil, estatura: nil)
-            return
-        }
+           guard let email = EmailTFE.text, !email.isEmpty else {
+               errorEmail = "Este campo es obligatorio"
+               mostrarErrores(nombre: nil, apellido: nil, email: errorEmail, peso: nil, estatura: nil)
+               btnguardar.isEnabled = true
+               btnguardar.alpha = 1.0
+               return
+           }
 
-        guard let pesoStr = PesoTFE.text?.trimmingCharacters(in: .whitespacesAndNewlines),
-              !pesoStr.isEmpty,
-              let peso = Float(pesoStr.replacingOccurrences(of: ",", with: ".")) else {
-            errorPeso = "Este campo debe ser numérico"
-            mostrarErrores(nombre: nil, apellido: nil, email: nil, peso: errorPeso, estatura: nil)
-            return
-        }
+           if !isValidEmail(email) {
+               errorEmail = "Correo no válido"
+               mostrarErrores(nombre: nil, apellido: nil, email: errorEmail, peso: nil, estatura: nil)
+               btnguardar.isEnabled = true
+               btnguardar.alpha = 1.0
+               return
+           }
 
-        if peso < 20 || peso > 150 {
-            errorPeso = "Peso fuera de rango"
-            mostrarErrores(nombre: nil, apellido: nil, email: nil, peso: errorPeso, estatura: nil)
-            return
-        }
+           guard let pesoStr = PesoTFE.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+                 !pesoStr.isEmpty,
+                 let peso = Float(pesoStr.replacingOccurrences(of: ",", with: ".")) else {
+               errorPeso = "Este campo debe ser numérico"
+               mostrarErrores(nombre: nil, apellido: nil, email: nil, peso: errorPeso, estatura: nil)
+               btnguardar.isEnabled = true
+               btnguardar.alpha = 1.0
+               return
+           }
 
-        guard let estaturaStr = AlturaTFE.text?.trimmingCharacters(in: .whitespacesAndNewlines),
-              !estaturaStr.isEmpty,
-              let estatura = Float(estaturaStr.replacingOccurrences(of: ",", with: ".")) else {
-            errorEstatura = "Este campo debe ser numérico"
-            mostrarErrores(nombre: nil, apellido: nil, email: nil, peso: nil, estatura: errorEstatura)
-            return
-        }
-        if estatura < 1.10 || estatura >= 2.20 {
-            errorEstatura = "Estatura fuera de rango"
-            mostrarErrores(nombre: nil, apellido: nil, email: nil, peso: nil, estatura: errorEstatura)
-            return
-        }
-        ApiService.shared.actualizarPerfil(
-            nombre: nombre,
-            apellido: apellido,
-            email: email,
-            peso: peso,
-            estatura: estatura
-        ) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let mensaje):
-                    let updatedUser = User(
-                        id: self.user?.id,
-                        nombre: nombre,
-                        apellido: apellido,
-                        peso: peso,
-                        estatura: estatura,
-                        email: email,
-                        rol_id: self.user?.rol_id,
-                        email_verified_at: self.user?.email_verified_at,
-                        deleted_at: self.user?.deleted_at
-                    )
-                    
-                    self.delegate?.perfilActualizado(updatedUser)
-                    self.showAlert("Perfil actualizado correctamente.") {
-                        self.navigationController?.popViewController(animated: true)
-                    }
-                case .failure(let error):
-                    self.showAlert(error.localizedDescription)
-                }
-            }
-        }
-    }
+           if peso < 20 || peso > 150 {
+               errorPeso = "Peso fuera de rango"
+               mostrarErrores(nombre: nil, apellido: nil, email: nil, peso: errorPeso, estatura: nil)
+               btnguardar.isEnabled = true
+               btnguardar.alpha = 1.0
+               return
+           }
 
+           guard let estaturaStr = AlturaTFE.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+                 !estaturaStr.isEmpty,
+                 let estatura = Float(estaturaStr.replacingOccurrences(of: ",", with: ".")) else {
+               errorEstatura = "Este campo debe ser numérico"
+               mostrarErrores(nombre: nil, apellido: nil, email: nil, peso: nil, estatura: errorEstatura)
+               btnguardar.isEnabled = true
+               btnguardar.alpha = 1.0
+               return
+           }
+
+           if estatura < 1.10 || estatura >= 2.20 {
+               errorEstatura = "Estatura fuera de rango"
+               mostrarErrores(nombre: nil, apellido: nil, email: nil, peso: nil, estatura: errorEstatura)
+               btnguardar.isEnabled = true
+               btnguardar.alpha = 1.0
+               return
+           }
+
+           ApiService.shared.actualizarPerfil(
+               nombre: nombre,
+               apellido: apellido,
+               email: email,
+               peso: peso,
+               estatura: estatura
+           ) { result in
+               DispatchQueue.main.async {
+                   // Reactivar botón al recibir respuesta
+                   self.btnguardar.isEnabled = true
+                   self.btnguardar.alpha = 1.0
+
+                   switch result {
+                   case .success(let mensaje):
+                       let updatedUser = User(
+                           id: self.user?.id,
+                           nombre: nombre,
+                           apellido: apellido,
+                           peso: peso,
+                           estatura: estatura,
+                           email: email,
+                           rol_id: self.user?.rol_id,
+                           email_verified_at: self.user?.email_verified_at,
+                           deleted_at: self.user?.deleted_at
+                       )
+                       self.delegate?.perfilActualizado(updatedUser)
+                       self.showAlert("Perfil actualizado correctamente.") {
+                           self.navigationController?.popViewController(animated: true)
+                       }
+
+                   case .failure(let error):
+                       self.showAlert(error.localizedDescription)
+                   }
+               }
+           }
+       }
 
    func mostrarErrores(nombre: String?, apellido: String?, email: String?, peso: String?, estatura: String?) {
        errorNombreLabel.text = nombre
@@ -213,6 +242,13 @@ class EditProfileViewController: UIViewController {
             completion?() 
         })
         present(alert, animated: true)
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true) // Oculta el teclado al tocar fuera
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder() // Oculta el teclado
+        return true
     }
    
     

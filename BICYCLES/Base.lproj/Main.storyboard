@@ -466,6 +466,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="Btnguardarbici" destination="jOL-6g-cZs" id="ONz-hn-Doc"/>
                         <outlet property="NombreBiciTF" destination="Z9x-ab-fJz" id="8YP-qc-6In"/>
                     </connections>
                 </viewController>
@@ -1073,6 +1074,7 @@
                     <connections>
                         <outlet property="confirmpassTF" destination="wgG-2d-apE" id="MPk-k6-FBf"/>
                         <outlet property="emailTF" destination="lOb-hR-oAO" id="qog-Ji-zS4"/>
+                        <outlet property="finishButton" destination="4IN-4i-qTg" id="21Y-Xh-U1x"/>
                         <outlet property="passwordTF" destination="Rwm-1B-i8o" id="CBy-TT-BbE"/>
                     </connections>
                 </viewController>
@@ -1189,6 +1191,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="BtnConfirmar" destination="71e-nS-0DY" id="tbd-aQ-4qe"/>
                         <outlet property="codeTextField" destination="ucH-uo-Urq" id="QJS-FT-fgj"/>
                     </connections>
                 </viewController>
@@ -1502,6 +1505,7 @@
                         <outlet property="EmailTFE" destination="SvT-HH-MXn" id="cHE-WM-a7I"/>
                         <outlet property="NombreTFE" destination="xqN-YY-8JD" id="ZzG-nl-ebn"/>
                         <outlet property="PesoTFE" destination="clU-bK-drE" id="9fT-bc-d5G"/>
+                        <outlet property="btnguardar" destination="vyf-Cr-6eM" id="gjP-OQ-1RK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WUG-Vc-F8D" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1627,6 +1631,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="Btnguardareditar" destination="sw1-gY-fxH" id="osn-GQ-f9X"/>
                         <outlet property="EditBiciTF" destination="33E-i8-3Cc" id="bDO-5A-dAS"/>
                     </connections>
                 </viewController>

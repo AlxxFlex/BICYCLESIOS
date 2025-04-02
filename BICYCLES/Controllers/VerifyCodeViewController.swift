@@ -7,12 +7,14 @@
 
 import UIKit
 
-class VerifyCodeViewController: UIViewController {
+class VerifyCodeViewController: UIViewController , UITextFieldDelegate{
 
+    @IBOutlet weak var BtnConfirmar: UIButton!
     @IBOutlet weak var codeTextField: UITextField!
     var email: String? 
     override func viewDidLoad() {
         super.viewDidLoad()
+        codeTextField.delegate = self
     }
     @IBAction func RessendBTN(_ sender: UIButton) {
     guard let email = email else {
@@ -35,28 +37,44 @@ class VerifyCodeViewController: UIViewController {
        }
     
     @IBAction func verifyButtonTapped(_ sender: UIButton) {
-        guard let code = codeTextField.text, !code.isEmpty else {
-            showAlert("Por favor, ingresa el código de verificación.")
-            return
-        }
-        guard let email = email else { return }
-        
-        ApiService.shared.sendVerification(email: email, codigo: code) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let verifyResponse):
-                    self.showAlert("¡Cuenta activada con éxito!") {
-                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        if let loginVC = storyboard.instantiateViewController(withIdentifier: "Loginview") as? LoginViewController {
-                            loginVC.modalPresentationStyle = .fullScreen
-                            self.present(loginVC, animated: true)
-                        }
-                    }
-                case .failure(let error):
-                    self.showAlert(error.localizedDescription)
-                }
-            }
-        }
+        // 💡 Desactivar botón antes de enviar
+           BtnConfirmar.isEnabled = false
+           BtnConfirmar.alpha = 0.5
+
+           guard let code = codeTextField.text, !code.isEmpty else {
+               showAlert("Por favor, ingresa el código de verificación.")
+               BtnConfirmar.isEnabled = true
+               BtnConfirmar.alpha = 1.0
+               return
+           }
+
+           guard let email = email else {
+               BtnConfirmar.isEnabled = true
+               BtnConfirmar.alpha = 1.0
+               return
+           }
+
+           ApiService.shared.sendVerification(email: email, codigo: code) { result in
+               DispatchQueue.main.async {
+                   // 💡 Reactivar botón después de la respuesta
+                   self.BtnConfirmar.isEnabled = true
+                   self.BtnConfirmar.alpha = 1.0
+
+                   switch result {
+                   case .success(let verifyResponse):
+                       self.showAlert("¡Cuenta activada con éxito!") {
+                           let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                           if let loginVC = storyboard.instantiateViewController(withIdentifier: "Loginview") as? LoginViewController {
+                               loginVC.modalPresentationStyle = .fullScreen
+                               self.present(loginVC, animated: true)
+                           }
+                       }
+
+                   case .failure(let error):
+                       self.showAlert(error.localizedDescription)
+                   }
+               }
+           }
     }
     
     func showAlert(_ message: String, completion: (() -> Void)? = nil) {
@@ -67,6 +85,13 @@ class VerifyCodeViewController: UIViewController {
         alert.addAction(okAction)
         present(alert, animated: true)
     }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            view.endEditing(true) // Oculta el teclado al tocar fuera
+        }
+        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            textField.resignFirstResponder() // Oculta el teclado
+            return true
+        }
     
 
     /*

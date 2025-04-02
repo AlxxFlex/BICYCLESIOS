@@ -21,6 +21,8 @@ class RegisterStep1ViewController: UIViewController,UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupErrorLabels()
+        apellidoTF.delegate = self
+        nameTF.delegate = self
     }
     func setupErrorLabels() {
             

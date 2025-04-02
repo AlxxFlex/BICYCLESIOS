@@ -29,33 +29,45 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         PasswordTF.delegate = self
     }
     @IBAction func loginTapped(_ sender: UIButton) {
-        if validateFields() {
-            guard let email = EmailTF.text, let password = PasswordTF.text else { return }
-            
-            ApiService.shared.login(email: email, password: password) { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let authResponse):
-                        SessionManager.shared.saveToken(authResponse.token)
-                        print(authResponse.token)
-                        SessionManager.shared.saveUser(authResponse.user)
-                        self.goToHome()
-                        
-                    case .failure(let error):
-                        if let verificationError = error as? VerificationNeededError {
-                            self.goToVerify(email: verificationError.email)
-                        } else {
-                            let message = error.localizedDescription
-                            self.showApiError(message)
+        // Evitar múltiples toques
+            loginButton.isEnabled = false
+            loginButton.alpha = 0.5 // (opcional, para que se vea visualmente deshabilitado)
+
+            if validateFields() {
+                guard let email = EmailTF.text, let password = PasswordTF.text else {
+                    loginButton.isEnabled = true
+                    loginButton.alpha = 1.0
+                    return
+                }
+
+                ApiService.shared.login(email: email, password: password) { result in
+                    DispatchQueue.main.async {
+                        self.loginButton.isEnabled = true
+                        self.loginButton.alpha = 1.0
+                        switch result {
+                        case .success(let authResponse):
+                            SessionManager.shared.saveToken(authResponse.token)
+                            print(authResponse.token)
+                            SessionManager.shared.saveUser(authResponse.user)
+                            self.goToHome()
+
+                        case .failure(let error):
+                            if let verificationError = error as? VerificationNeededError {
+                                self.goToVerify(email: verificationError.email)
+                            } else {
+                                let message = error.localizedDescription
+                                self.showApiError(message)
+                            }
                         }
                     }
                 }
+            } else {
+                loginButton.isEnabled = true
+                loginButton.alpha = 1.0
             }
-        }
     }
-    // Configuración de etiquetas de error para email y contraseña
+    
         func setupErrorLabels() {
-            // Configuración de error para Email
             emailErrorLabel = UILabel()
             emailErrorLabel.textColor = .red
             emailErrorLabel.font = UIFont.systemFont(ofSize: 12)

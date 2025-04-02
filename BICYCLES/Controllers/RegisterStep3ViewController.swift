@@ -9,6 +9,7 @@ import UIKit
 
 class RegisterStep3ViewController: UIViewController,UITextFieldDelegate {
 
+    @IBOutlet weak var finishButton: UIButton!
     @IBOutlet weak var confirmpassTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
     @IBOutlet weak var emailTF: UITextField!
@@ -25,6 +26,9 @@ class RegisterStep3ViewController: UIViewController,UITextFieldDelegate {
        setupPasswordField()
         setupErrorLabels()
        setupConfirmPasswordField()
+        emailTF.delegate = self
+        passwordTF.delegate = self
+        confirmpassTF.delegate = self
        
        let backButton = UIButton(type: .system)
        let image = UIImage(systemName: "arrowshape.left.fill")
@@ -83,95 +87,115 @@ class RegisterStep3ViewController: UIViewController,UITextFieldDelegate {
     
     @IBAction func finishButtonTapped(_ sender: UIButton) {
         
-              emailErrorLabel.isHidden = true
-              passwordErrorLabel.isHidden = true
-              confirmPasswordErrorLabel.isHidden = true
+        // Desactivar botón mientras se procesa
+            finishButton.isEnabled = false
+            finishButton.alpha = 0.5
 
-              var isValid = true
+            emailErrorLabel.isHidden = true
+            passwordErrorLabel.isHidden = true
+            confirmPasswordErrorLabel.isHidden = true
 
-              // 1. Validar email
-              guard let email = emailTF.text, !email.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-                  emailErrorLabel.isHidden = false
-                  emailErrorLabel.text = "El correo es obligatorio."
-                  isValid = false
-                  return
-              }
-              
-              // Formato de email
-              guard isValidEmail(email) else {
-                  emailErrorLabel.isHidden = false
-                  emailErrorLabel.text = "Formato de correo inválido."
-                  isValid = false
-                  return
-              }
+            var isValid = true
 
-              // 2. Validar password
-              guard let pass = passwordTF.text, !pass.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-                  passwordErrorLabel.isHidden = false
-                  passwordErrorLabel.text = "La contraseña es obligatoria."
-                  isValid = false
-                  return
-              }
+            // Validar campos
+            guard let email = emailTF.text, !email.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+                emailErrorLabel.isHidden = false
+                emailErrorLabel.text = "El correo es obligatorio."
+                isValid = false
+                finishButton.isEnabled = true
+                finishButton.alpha = 1.0
+                return
+            }
 
-              guard pass.count >= 6 else {
-                  passwordErrorLabel.isHidden = false
-                  passwordErrorLabel.text = "La contraseña debe tener al menos 6 caracteres."
-                  isValid = false
-                  return
-              }
+            guard isValidEmail(email) else {
+                emailErrorLabel.isHidden = false
+                emailErrorLabel.text = "Formato de correo inválido."
+                isValid = false
+                finishButton.isEnabled = true
+                finishButton.alpha = 1.0
+                return
+            }
 
-              // 3. Validar confirmación
-              guard let confirmPass = confirmpassTF.text, !confirmPass.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-                  confirmPasswordErrorLabel.isHidden = false
-                  confirmPasswordErrorLabel.text = "Debes confirmar tu contraseña."
-                  isValid = false
-                  return
-              }
+            guard let pass = passwordTF.text, !pass.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+                passwordErrorLabel.isHidden = false
+                passwordErrorLabel.text = "La contraseña es obligatoria."
+                isValid = false
+                finishButton.isEnabled = true
+                finishButton.alpha = 1.0
+                return
+            }
 
-              guard pass == confirmPass else {
-                  confirmPasswordErrorLabel.isHidden = false
-                  confirmPasswordErrorLabel.text = "Las contraseñas no coinciden."
-                  isValid = false
-                  return
-              }
-              guard let nombre = registerData.nombre,
-                    let apellido = registerData.apellido,
-                    let peso = registerData.peso,
-                    let estatura = registerData.estatura else {
-                  showAlert("Faltan datos de los pasos anteriores. Por favor, completa todos los campos.")
-                  return
-              }
+            guard pass.count >= 6 else {
+                passwordErrorLabel.isHidden = false
+                passwordErrorLabel.text = "La contraseña debe tener al menos 6 caracteres."
+                isValid = false
+                finishButton.isEnabled = true
+                finishButton.alpha = 1.0
+                return
+            }
 
-              if isValid {
-                  ApiService.shared.register(
-                      nombre: nombre,
-                      apellido: apellido,
-                      peso: peso,
-                      estatura: estatura,
-                      email: email,
-                      password: pass,
-                      confirm_password: confirmPass
-                  ) { result in
-                      DispatchQueue.main.async {
-                          switch result {
-                          case .success(let response):
-                              guard let email = self.emailTF.text else { return }
-                              self.showAlert("Registro exitoso: \(response.usuario.email)") {
-                                  let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                                  if let verifyVC = storyboard.instantiateViewController(withIdentifier: "VerifyView") as? VerifyCodeViewController {
-                                  
-                                      verifyVC.email = email
-                                      verifyVC.modalPresentationStyle = .fullScreen
+            guard let confirmPass = confirmpassTF.text, !confirmPass.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+                confirmPasswordErrorLabel.isHidden = false
+                confirmPasswordErrorLabel.text = "Debes confirmar tu contraseña."
+                isValid = false
+                finishButton.isEnabled = true
+                finishButton.alpha = 1.0
+                return
+            }
 
-                                      self.present(verifyVC, animated: true, completion: nil)
-                                  }
-                              }
-                          case .failure(let error):
-                              self.showAlert(error.localizedDescription)
-                          }
-                      }
-                  }
-              }
+            guard pass == confirmPass else {
+                confirmPasswordErrorLabel.isHidden = false
+                confirmPasswordErrorLabel.text = "Las contraseñas no coinciden."
+                isValid = false
+                finishButton.isEnabled = true
+                finishButton.alpha = 1.0
+                return
+            }
+
+            guard let nombre = registerData.nombre,
+                  let apellido = registerData.apellido,
+                  let peso = registerData.peso,
+                  let estatura = registerData.estatura else {
+                showAlert("Faltan datos de los pasos anteriores. Por favor, completa todos los campos.")
+                finishButton.isEnabled = true
+                finishButton.alpha = 1.0
+                return
+            }
+
+            if isValid {
+                ApiService.shared.register(
+                    nombre: nombre,
+                    apellido: apellido,
+                    peso: peso,
+                    estatura: estatura,
+                    email: email,
+                    password: pass,
+                    confirm_password: confirmPass
+                ) { result in
+                    DispatchQueue.main.async {
+                        self.finishButton.isEnabled = true
+                        self.finishButton.alpha = 1.0
+
+                        switch result {
+                        case .success(let response):
+                            self.showAlert("Registro exitoso: \(response.usuario.email)") {
+                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                                if let verifyVC = storyboard.instantiateViewController(withIdentifier: "VerifyView") as? VerifyCodeViewController {
+                                    verifyVC.email = email
+                                    verifyVC.modalPresentationStyle = .fullScreen
+                                    self.present(verifyVC, animated: true, completion: nil)
+                                }
+                            }
+
+                        case .failure(let error):
+                            self.showAlert(error.localizedDescription)
+                        }
+                    }
+                }
+            } else {
+                finishButton.isEnabled = true
+                finishButton.alpha = 1.0
+            }
           }
 
           func isValidEmail(_ email: String) -> Bool {

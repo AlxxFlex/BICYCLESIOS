@@ -21,6 +21,10 @@ class RegisterStep2ViewController: UIViewController,UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         setupErrorLabels()
+        pesoTF.delegate = self
+        estaturaTF.delegate = self
+        
+        
            
            
            let backButton = UIButton(type: .system)
