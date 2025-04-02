@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController,UITextFieldDelegate {
 
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var PasswordTF: UITextField!
@@ -19,11 +19,14 @@ class LoginViewController: UIViewController {
     var apiErrorLabel: UILabel!
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupPasswordField()
         setupErrorLabels()
         setupApiErrorLabel()
+        EmailTF.delegate = self
+        PasswordTF.delegate = self
     }
     @IBAction func loginTapped(_ sender: UIButton) {
         if validateFields() {
@@ -202,4 +205,11 @@ class LoginViewController: UIViewController {
                     .setImage(UIImage(systemName: "eye.slash.fill"), for: .normal)
             }
         }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true) // Oculta el teclado al tocar fuera
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder() // Oculta el teclado
+        return true
+    }
     }

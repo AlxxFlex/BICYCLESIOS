@@ -36,11 +36,9 @@ class NewBicicletaViewController: UIViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success:
-                    print("✅ Bicicleta creada correctamente.")
-                    self?.mostrarAlerta(titulo: "✅ ", mensaje: "Bicicleta agregada correctamente.") {
                         self?.delegate?.didAddBicicleta()
                         self?.dismiss(animated: true, completion: nil)
-                    }
+                    
                 case .failure(let error):
                     print("❌ Error al crear la bicicleta: \(error.localizedDescription)")
                     self?.mostrarAlerta(titulo: "❌ ", mensaje: "No se pudo agregar la bicicleta. Inténtalo nuevamente.")

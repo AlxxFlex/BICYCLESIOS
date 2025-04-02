@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RegisterStep1ViewController: UIViewController {
+class RegisterStep1ViewController: UIViewController,UITextFieldDelegate {
 
     @IBOutlet weak var apellidoTF: UITextField!
     @IBOutlet weak var nameTF: UITextField!
@@ -85,6 +85,13 @@ class RegisterStep1ViewController: UIViewController {
            }
        }
    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true) // Oculta el teclado al tocar fuera
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder() // Oculta el teclado
+        return true
+    }
     /*
     // MARK: - Navigation
 

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RegisterStep2ViewController: UIViewController {
+class RegisterStep2ViewController: UIViewController,UITextFieldDelegate{
 
     @IBOutlet weak var pesoTF: UITextField!
     @IBOutlet weak var estaturaTF: UITextField!
@@ -123,6 +123,13 @@ class RegisterStep2ViewController: UIViewController {
                 estaturaErrorLabel.trailingAnchor.constraint(equalTo: estaturaTF.trailingAnchor)
             ])
         }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true) // Oculta el teclado al tocar fuera
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder() // Oculta el teclado
+        return true
+    }
     
     /*
     // MARK: - Navigation

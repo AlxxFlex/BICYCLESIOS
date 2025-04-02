@@ -40,10 +40,9 @@ class EditarBicicletaViewController: UIViewController {
                 switch result {
                 case .success:
                     print("✅ Bicicleta editada correctamente.")
-                    self?.mostrarAlerta(titulo: "✅", mensaje: "Bicicleta actualizada correctamente.") {
                         self?.delegate?.didEditBicicleta()
                         self?.dismiss(animated: true, completion: nil)
-                    }
+                    
                 case .failure(let error):
                     print("❌ Error al editar la bicicleta: \(error.localizedDescription)")
                     self?.mostrarAlerta(titulo: "❌", mensaje: "No se pudo actualizar la bicicleta.")

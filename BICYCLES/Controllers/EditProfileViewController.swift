@@ -107,7 +107,7 @@ class EditProfileViewController: UIViewController {
             mostrarErrores(nombre: nil, apellido: nil, email: nil, peso: nil, estatura: errorEstatura)
             return
         }
-        if estatura < 1.10 || estatura > 2.20 {
+        if estatura < 1.10 || estatura >= 2.20 {
             errorEstatura = "Estatura fuera de rango"
             mostrarErrores(nombre: nil, apellido: nil, email: nil, peso: nil, estatura: errorEstatura)
             return

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RegisterStep3ViewController: UIViewController {
+class RegisterStep3ViewController: UIViewController,UITextFieldDelegate {
 
     @IBOutlet weak var confirmpassTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
@@ -223,6 +223,13 @@ class RegisterStep3ViewController: UIViewController {
            alert.addAction(okAction)
            present(alert, animated: true)
        }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true) // Oculta el teclado al tocar fuera
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder() // Oculta el teclado
+        return true
+    }
        
 }
     /*

@@ -10,7 +10,7 @@ import Foundation
 class ApiService {
     static let shared = ApiService()
     
-    private let baseURL = "http://127.0.0.1:8000/api/v1"
+    private let baseURL = "http://192.168.118.116:8000/api/v1"
 
     func login(email: String, password: String, completion: @escaping(Result<AuthResponse, Error>) -> Void) {
         guard let url = URL(string: "\(baseURL)/login") else {

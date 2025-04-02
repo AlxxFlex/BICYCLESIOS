@@ -130,7 +130,6 @@ class EliminarBicicletaViewController: UIViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success:
-                    print("✅ Bicicleta eliminada correctamente.")
                     self?.delegate?.didDeleteBicicleta()
                     self?.dismiss(animated: true, completion: nil)
                 case .failure(let error):
