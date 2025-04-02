@@ -15,7 +15,8 @@ class EstadisticasViewController: UIViewController {
     @IBOutlet weak var lblMejor: UILabel!
     @IBOutlet weak var lblPromedio: UILabel!
     @IBOutlet weak var vwContenedorGrafica: UIView!
-    
+    var generales:[String: Any] = [:]
+    var datos:[String: Any] = [:]
     let graficaBarras: BarChartView = {
         let chart = BarChartView()
 
@@ -43,7 +44,8 @@ class EstadisticasViewController: UIViewController {
         }
 
         
-        configurarDatosGrafica()
+        peticionApi()
+        configurarDataGrafica()
 
         
     }
@@ -64,7 +66,59 @@ class EstadisticasViewController: UIViewController {
 
     }
     
-    func configurarDatosGrafica() {
+    func peticionApi() {
+
+        if let url = URL(string: "http://192.168.252.110:8000/api/v1/semana/estadisticas") {
+            guard let token = SessionManager.shared.getToken() else {
+                return
+            }
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "GET"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            
+            
+            URLSession.shared.dataTask(with: request) { data, response, error in
+                print("se mando la request")
+                
+                if let error = error {
+                    print("Error en la solicitud: \(error.localizedDescription)")
+                    return
+                }
+                
+                guard let data = data else {
+                    print("No se recibieron datos.")
+                    return
+                }
+                
+                if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                    do {
+                        if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                            //print("Datos recibidos: \(jsonResponse)")
+                            self.generales = jsonResponse["generales"] as! [String: Any]
+                            self.datos = jsonResponse["data"] as! [String: Any]
+                            
+                        } else {
+                            print("Formato de respuesta no válido.")
+                        }
+                    } catch {
+                        print("Error al procesar los datos: \(error.localizedDescription)")
+                    }
+                } else {
+                    print("La respuesta no fue exitosa. Código de estado: \(String(describing: (response as? HTTPURLResponse)?.statusCode))")
+                }
+            }.resume()
+        } else {
+            print("La URL no es válida")
+        }
+
+        
+        
+    }
+    
+    func configurarDataGrafica(_ seccion: String = "calorias"){
+        
         let valores: [Double] = [50, 104, 81, 93, 52, 100, 500]
         var entradasDeDatos: [BarChartDataEntry] = []
         
@@ -74,7 +128,7 @@ class EstadisticasViewController: UIViewController {
             entradasDeDatos.append(entrada)
         }
         
-        let conjuntoDeDatos = BarChartDataSet(entries: entradasDeDatos, label: "Distancias")
+        let conjuntoDeDatos = BarChartDataSet(entries: entradasDeDatos, label: seccion)
         
         conjuntoDeDatos.colors = [UIColor.blue]
         
@@ -99,6 +153,7 @@ class EstadisticasViewController: UIViewController {
         graficaBarras.leftAxis.drawGridLinesEnabled = false
         
         graficaBarras.notifyDataSetChanged()
+        
     }
 
     
