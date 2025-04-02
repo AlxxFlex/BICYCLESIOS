@@ -11,7 +11,7 @@ struct Recorrido: Codable {
     let id: String
     let bicicletaNombre: String
     let calorias: Int
-    let tiempo: Int
+    let tiempo: String
     let velocidadPromedio: Double
     let velocidadMaxima: Int
     let distanciaRecorrida: Double

@@ -9,6 +9,14 @@ import UIKit
 
 class SelectRouteViewController: UIViewController {
 
+    @IBOutlet weak var VelocidadPromedio: UILabel!
+    @IBOutlet weak var VelocidadMaxima: UILabel!
+    @IBOutlet weak var TemperaturaLabel: UILabel!
+    @IBOutlet weak var CaloriasLabel: UILabel!
+    @IBOutlet weak var DistanciaLabel: UILabel!
+    @IBOutlet weak var TiempoLabel: UILabel!
+    @IBOutlet weak var FechaLabel: UILabel!
+    @IBOutlet weak var BicicletaNombreLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
